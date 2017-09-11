@@ -10,7 +10,7 @@
 	<p>{{ tomato.description }}</p>
 {% endif %}
 
-{% if tomato.types %}
+{% if tomato.types.all|length > 0 %}
 	<h2>Typen</h2>
 	<ul>
 		{% for type in tomato.types.all %}
@@ -19,7 +19,7 @@
 	</ul>
 {% endif %}
 
-{% if tomato.colors %}
+{% if tomato.colors.all|length > 0 %}
 	<h2>Farben</h2>
 	<ul>
 		{% for color in tomato.colors.all %}

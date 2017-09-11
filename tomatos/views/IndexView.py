@@ -11,5 +11,5 @@ class IndexView( generic.ListView ):
     
     ## generate 'tomatos_list'
     def get_queryset( self ):
-        return Tomato.objects.order_by( 'name' )[:5]
+        return Tomato.objects.order_by( 'name' )
     

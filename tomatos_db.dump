@@ -1,0 +1,2003 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.4
+-- Dumped by pg_dump version 9.6.4
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE auth_group OWNER TO django;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_id_seq OWNER TO django;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_group_permissions OWNER TO django;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_permissions_id_seq OWNER TO django;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE auth_permission OWNER TO django;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_permission_id_seq OWNER TO django;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE auth_user OWNER TO django;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_groups OWNER TO django;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_groups_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_user_permissions OWNER TO django;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_user_permissions_id_seq OWNER TO django;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE django_admin_log OWNER TO django;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_admin_log_id_seq OWNER TO django;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE django_content_type OWNER TO django;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_content_type_id_seq OWNER TO django;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_migrations OWNER TO django;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_migrations_id_seq OWNER TO django;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_session OWNER TO django;
+
+--
+-- Name: tomatos_tomato; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE tomatos_tomato (
+    id integer NOT NULL,
+    name character varying,
+    description character varying,
+    image character varying
+);
+
+
+ALTER TABLE tomatos_tomato OWNER TO django;
+
+--
+-- Name: tomatos_tomato_colors; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE tomatos_tomato_colors (
+    id integer NOT NULL,
+    tomato_id integer,
+    tomatocolor_id integer
+);
+
+
+ALTER TABLE tomatos_tomato_colors OWNER TO django;
+
+--
+-- Name: tomatos_tomato_colors_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE tomatos_tomato_colors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tomatos_tomato_colors_id_seq OWNER TO django;
+
+--
+-- Name: tomatos_tomato_colors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE tomatos_tomato_colors_id_seq OWNED BY tomatos_tomato_colors.id;
+
+
+--
+-- Name: tomatos_tomato_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE tomatos_tomato_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tomatos_tomato_id_seq OWNER TO django;
+
+--
+-- Name: tomatos_tomato_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE tomatos_tomato_id_seq OWNED BY tomatos_tomato.id;
+
+
+--
+-- Name: tomatos_tomato_types; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE tomatos_tomato_types (
+    id integer NOT NULL,
+    tomato_id integer,
+    tomatotype_id integer
+);
+
+
+ALTER TABLE tomatos_tomato_types OWNER TO django;
+
+--
+-- Name: tomatos_tomato_types_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE tomatos_tomato_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tomatos_tomato_types_id_seq OWNER TO django;
+
+--
+-- Name: tomatos_tomato_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE tomatos_tomato_types_id_seq OWNED BY tomatos_tomato_types.id;
+
+
+--
+-- Name: tomatos_tomatocolor; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE tomatos_tomatocolor (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE tomatos_tomatocolor OWNER TO django;
+
+--
+-- Name: tomatos_tomatocolor_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE tomatos_tomatocolor_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tomatos_tomatocolor_id_seq OWNER TO django;
+
+--
+-- Name: tomatos_tomatocolor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE tomatos_tomatocolor_id_seq OWNED BY tomatos_tomatocolor.id;
+
+
+--
+-- Name: tomatos_tomatotype; Type: TABLE; Schema: public; Owner: django
+--
+
+CREATE TABLE tomatos_tomatotype (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE tomatos_tomatotype OWNER TO django;
+
+--
+-- Name: tomatos_tomatotype_id_seq; Type: SEQUENCE; Schema: public; Owner: django
+--
+
+CREATE SEQUENCE tomatos_tomatotype_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tomatos_tomatotype_id_seq OWNER TO django;
+
+--
+-- Name: tomatos_tomatotype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: django
+--
+
+ALTER SEQUENCE tomatos_tomatotype_id_seq OWNED BY tomatos_tomatotype.id;
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: tomatos_tomato id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato ALTER COLUMN id SET DEFAULT nextval('tomatos_tomato_id_seq'::regclass);
+
+
+--
+-- Name: tomatos_tomato_colors id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_colors ALTER COLUMN id SET DEFAULT nextval('tomatos_tomato_colors_id_seq'::regclass);
+
+
+--
+-- Name: tomatos_tomato_types id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_types ALTER COLUMN id SET DEFAULT nextval('tomatos_tomato_types_id_seq'::regclass);
+
+
+--
+-- Name: tomatos_tomatocolor id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomatocolor ALTER COLUMN id SET DEFAULT nextval('tomatos_tomatocolor_id_seq'::regclass);
+
+
+--
+-- Name: tomatos_tomatotype id; Type: DEFAULT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomatotype ALTER COLUMN id SET DEFAULT nextval('tomatos_tomatotype_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add user	3	add_user
+8	Can change user	3	change_user
+9	Can delete user	3	delete_user
+10	Can add group	4	add_group
+11	Can change group	4	change_group
+12	Can delete group	4	delete_group
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add tomato	7	add_tomato
+20	Can change tomato	7	change_tomato
+21	Can delete tomato	7	delete_tomato
+22	Can add tomato color	8	add_tomatocolor
+23	Can change tomato color	8	change_tomatocolor
+24	Can delete tomato color	8	delete_tomatocolor
+25	Can add tomato type	9	add_tomatotype
+26	Can change tomato type	9	change_tomatotype
+27	Can delete tomato type	9	delete_tomatotype
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 27, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$36000$QKU7ySha2Zkm$6pEVMrtPZnDH2nuxnS/zCPi0fuvZsZhumkSi+ss5ZVE=	2017-09-11 22:58:48.705774+00	t	admin			admin@cumbubble.org	t	t	2017-09-11 13:30:52.143662+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+1	2017-09-11 13:37:36.56966+00	1	TomatoType object	1	[{"added": {}}]	9	1
+2	2017-09-11 13:37:55.920094+00	1	TomatoColor object	1	[{"added": {}}]	8	1
+3	2017-09-11 13:41:59.539963+00	1	Albertovske Gelb	1	[{"added": {}}]	7	1
+4	2017-09-11 13:50:33.795209+00	2	rot	1	[{"added": {}}]	8	1
+5	2017-09-11 13:50:39.3041+00	3	weiß	1	[{"added": {}}]	8	1
+6	2017-09-11 13:53:57.325251+00	2	Alberta Girl	1	[{"added": {}}]	7	1
+7	2017-09-11 13:56:26.186896+00	2	Alberta Girl	3		7	1
+8	2017-09-11 13:57:37.080884+00	3	Alberta Girl	1	[{"added": {}}]	7	1
+9	2017-09-11 14:38:02.207639+00	1	Albertovske Gelb	3		7	1
+10	2017-09-11 14:50:11.362197+00	4	Albertovske Gelb	1	[{"added": {}}]	7	1
+11	2017-09-11 14:52:15.450727+00	4	Albertovske Gelb	2	[{"changed": {"fields": ["image"]}}]	7	1
+12	2017-09-11 15:00:58.773927+00	4	Albertovske Gelb	2	[]	7	1
+13	2017-09-11 23:00:16.259974+00	10	Ananas Noire	2	[{"changed": {"fields": ["image"]}}]	7	1
+14	2017-09-11 23:00:41.695993+00	142	Tschio Tschio San	2	[{"changed": {"fields": ["image"]}}]	7	1
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 14, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	user
+4	auth	group
+5	contenttypes	contenttype
+6	sessions	session
+7	tomatos	tomato
+8	tomatos	tomatocolor
+9	tomatos	tomatotype
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 9, true);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2017-09-11 13:09:11.367665+00
+2	auth	0001_initial	2017-09-11 13:09:12.414687+00
+3	admin	0001_initial	2017-09-11 13:09:12.646206+00
+4	admin	0002_logentry_remove_auto_add	2017-09-11 13:09:12.703954+00
+5	contenttypes	0002_remove_content_type_name	2017-09-11 13:09:12.745061+00
+6	auth	0002_alter_permission_name_max_length	2017-09-11 13:09:12.806629+00
+7	auth	0003_alter_user_email_max_length	2017-09-11 13:09:12.844127+00
+8	auth	0004_alter_user_username_opts	2017-09-11 13:09:12.862657+00
+9	auth	0005_alter_user_last_login_null	2017-09-11 13:09:12.885636+00
+10	auth	0006_require_contenttypes_0002	2017-09-11 13:09:12.89449+00
+11	auth	0007_alter_validators_add_error_messages	2017-09-11 13:09:12.915098+00
+12	auth	0008_alter_user_username_max_length	2017-09-11 13:09:13.002474+00
+13	sessions	0001_initial	2017-09-11 13:09:13.176125+00
+14	tomatos	0001_initial	2017-09-11 13:12:09.2208+00
+15	tomatos	0002_auto_20170911_1521	2017-09-11 13:23:26.402718+00
+16	tomatos	0003_auto_20170911_1548	2017-09-11 13:48:30.843736+00
+17	tomatos	0004_auto_20170911_1553	2017-09-11 13:53:47.46874+00
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 17, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+lum3ax0r29evmcl8h1h3yxztauy10y7p	ZThmZmVhMTgyYTEwMzk1ZTc0OTQ5N2JiNjVlODMyZDYxNjUzNmYxYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9oYXNoIjoiMTE2OTg2ZTgzNDM1ZjlkM2NlZTZjOWM1ODEyOTAwNjZhNjBiZTM5ZCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2017-09-25 13:32:02.706868+00
+h8pdks3vd09dvc8c96z3iafem9ly3qyt	ZThmZmVhMTgyYTEwMzk1ZTc0OTQ5N2JiNjVlODMyZDYxNjUzNmYxYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9oYXNoIjoiMTE2OTg2ZTgzNDM1ZjlkM2NlZTZjOWM1ODEyOTAwNjZhNjBiZTM5ZCIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0=	2017-09-25 22:58:48.714318+00
+\.
+
+
+--
+-- Data for Name: tomatos_tomato; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY tomatos_tomato (id, name, description, image) FROM stdin;
+1	Alberta Girl	Stabtomate - Eine Tomatenpflanze mit höchst ungewöhnlichen, beflaumten, runden und dunkelroten Früchten. Auch die Pflanze ist komplett weiß-silbrig behaart. Gesunder Wuchs, aber nur für überdachte Standorte geeignet.	\N
+2	Albertovske Gelb	Stabtomate - Eine schöne, rein gelbe Stabtomate von gesundem Wuchs. Etwas fleischig, mild im Geschmack. Aus Tschechien.	images/Albertovske_gelb.jpg
+3	Alyi Mustang	Flaschenförmige, sehr schmal, eiförmige, paprikaförmige, lachsrosa bis rot gefärbte Tomate.	images/Alij_Mustang.jpg
+4	Amana Orange	Stabtomate - Große, gelborange Fleischtomate von ca. 10 cm Durchmesser.	images/Amana_Orange.jpg
+5	Amana Rot	Stabtomate - Große, dunkelrote Fleischtomate von ca. 10 cm Durchmesser.	\N
+6	Amerikanische, Wildtomate	Stabtomate - Kleinfruchtige Wildtomate mit kugelrunden, roten Früchten von gerade mal 6 Gramm. Sehr Einheitlich in Form und Farbe, nahezu alle Früchte um 16 mm im Durchmesser. Etwa 8 Früchte sitzen eng an eng in kleinen und dichten Trauben.	images/Amerikanische_Wildtomate.jpg
+7	Amish Gold	Stabtomate - Ovalfruchtige, hoch wachsende Stabtomate mit orange-farbenen, pflaumenförmigen Früchten.	images/Amish_Gold.jpg
+8	Amish Salad	Stabtomate - Große, ovale Stab-Obsttomate mit pinkfarbenen Früchten.	images/Amish_Salad.jpg
+9	Ananas	Stabtomate - Hohe Wärmeansprüche, für Hauswand, Tomatenkasten und Gewächshaus! Rote bis orangefarbene, geflammte, oft sehr schwere, kartoffelblättrige Stab-Fleischtomate.	images/Ananas.jpg
+11	Andenhorn	Stabtomate - Kuriose Stabtomate mit roten spitz-paprikaförmigen Früchten, die eine lange ausgezogene Spitze haben. Bis 14 cm lang und 4 bis 5 cm Durchmesser. Sehr interessante Fruchtform. Mittelrot.	images/Andenhoernchen.jpg
+12	Anna German	Stabtomate - (Anna Hermann) Nach polnischer Sängerin benannte osteuropäische Sorte. Wunderschöne, zitronenförmige und zitronengelbe Frucht. Größere Früchte sind eher Herzförmig (mit Spitze). Durchmesser ca.6 cm, 2- bis 3- kammerig, platzfest, oft hohl, spät reifend. Geschmack: milder Geschmack.\r \r Ertrag: Sehr guter Ertrag an warmen vollsonnigen Standort. Auch für die Kultur im Gewächshaus geeignet.	images/Anna_German.jpg
+13	Antho Weiss	Stabtomate - Eine Stabtomate mit weißcreme bis cremegelbe mit brauner Schipperung am Fruchtansatz kleinen etwa 2 bis 2,5cm großen Früchten. Sie sind rund bis leicht abgeflacht.	images/Antho_Weiss.jpg
+14	Aranica Zloty Ozarowski	Stabtomate - Eine normal große Sorte, bei deren Anblick einem die Sonne im Herzen aufgeht. Fast runde leuchtend orange Früchte, welche mittelfrüh und reich tragen.	images/Arancia_Zlaty.jpg
+15	Aucuba	Stabtomate - Orangegelbe Fleischtomate aus Italien, mittelgroß, ertragreich, aromatisch. Platte Früchte, verschieden in der Größe, doch alle sehr schön gefärbt. Mehr oder weniger stark gerippt. Innen toll orange gefärbt mit sternförmig angeordneten Fruchtkammern. Äußerst dicke Fruchtwand.	images/Aucuba.jpg
+16	Aunt Ruby´s German Green	Stabtomate - Wüchsige, grüngelbe, etwa 2 m hohe, kartoffelblättrige Stab-Fleischtomate mit etwas platten und leicht gerippten, mittelgroßen, z. T. auch riesigen Früchten, deren Größe zwischen 5 und 15 cm schwankt. Das Gewicht liegt in der Regel zwischen 200 g und 300 g. Fruchtfleisch innen manchmal mit rosa Streifen durchzogen. Reif ist die Frucht eher orangegrün und an den Rippen oft dunkelorange gestreift.	images/Aunt_Ruby_German_Green.jpg
+17	Aunt Ruby´s German Yellow	Stabtomate - Wüchsige, gelbe, etwa 2 m hohe, kartoffelblättrige Stab-Fleischtomate mit etwas platten und leicht gerippten, mittelgroßen, z. T. auch riesigen Früchten, deren Größe zwischen 5 und 15 cm schwankt. Das Gewicht liegt in der Regel zwischen 200 g und 300 g. Fruchtfleisch innen manchmal mit rosa Streifen durchzogen. Reif ist die Frucht eher gelborange und an den Rippen oft gelborange gestreift.	images/Aunt_Rubys_German_Yellow.jpg
+18	Aurantiacum Wildtomate	Stabtomate - Ertragreiche Wildtomate mit nicht ganz kirschgroßen, dottergelben Früchten, die in Trauben mit teils mehr als 100 Früchten reifen. Die eiförmigen Früchte sind knackig und saftig.	\N
+19	Azoychka Orange	Stabtomate - Sehr hoch wachsende (2,5 - 2,7 m), gelborange Fleischtomate.  Unregelmäßig geformte, platte Früchte mit vielen Fruchtkammern 2 - 3 Früchte je Wickel. Kartoffelblättrig.	images/Azoychka_Orange.jpg
+20	Azoychka Red	Stabtomate - Sehr hoch wachsende (2,5 - 2,7 m), rote Fleischtomate. Unregelmäßig geformte, platte Früchte mit vielen Fruchtkammern 2-3 Früchte je Wickel. Kartoffelblättrig.	images/Azoychka.jpg
+21	Babuschka	Stabtomate - Große, dunkelrosa Fleischtomate. Voll durchfärbt und gut tragend. Gutes Säure-Zucker-Verhältnis. Dickfleischige, samenreiche Früchte. Mehrkammerig. Sehr aromatisch.	images/Babuschka.jpg
+22	Bahia	Stabtomate - Mittelhohe Stabtomate mit plattrunder, weinroter Frucht, oft mit dunkler Kappe und einigen Rippen. Gesunde Pflanze, die fleißig trägt. Mehrere Fruchtkammern.	images/Bahia.jpg
+23	Banan	Stabtomate - Sehr frühreif mit schönen, länglichen, roten Früchten bis 70 Gramm. Eher walzenförmig, meist mit stumpfer Spitze. Ketschup-Typ.	images/Banan.jpg
+24	Banana Legs	Stabtomate - (Banana Legs Large Yellow) Längliche, gelbe Früchte mit 2 bis 3cm Durchmesser. Jede Frucht wiegt etwa 30 bis 60 Gramm, selten mehr.  ! Früchte ähneln Mini-Bananen, sind aber nicht gebogen. Ertragreich in warmer Lage, sonst nur mäßige Ernte, doch äußerst dekorativ. Mittelhohe Pflanze. Platzfest. 2 Fruchtkammern. Festfleischig. 5 bis 6 Früchte je Traube. Erntebeginn: August. Herkunft: Australien	images/Banana_Legs.jpg
+25	Bawole Serce	Stabtomate - Polnische Sorte. Eine mittelhohe bis hohe Stabtomate mit rosarot bis pinkfarbenen Fleischtomate. Die Früchte sind dicklich oval, leichte Rippung am Fruchtansatz, neigen zu Grünkragen, platzen leicht aber vernarben sehr gut.	images/Bawole_Serce.jpg
+26	Behaarte Brandywine	, Ampeltomate - Mittelfrühe Buschtomate mit intensiv orange Früchten. Möglichst Überdacht hinhängen, wegen Braunfäule. Niedrige, buschige Pflanze mit Massen ca.4cm großen, behaarten Früchte und behaarten Blättern. Kaum Platzer. Erste Früchte gegen Mitte August. Die Pflanzen breiten sich mit fast wagerechten Trieben am Boden aus, daher mindestens 50 bis 60 cm Abstand halten. Wuchshöhe dagegen nur ca. 25 cm. Für eine Ampel genügt eine Pflanze. Recht robust im Wuchs.	images/Behaarte_Brandywine.jpg
+27	Benissoinante	Stabtomate - 	images/Benissinante.jpg
+47	Fucco d´ Oro Red	Stabtomate - Unförmige, flache, ungewöhnliche, Mittel- bis dunkelrote Stabtomate. Reich tragend. Recht platzfest. Verträgt keinen Regen.	\N
+48	Gaio de Melon	Stabtomate - Eine Kirschtomate mit zweifarbigem Fleisch. Sie ist gelbrot geflammt, ca.2 cm im Durchmesser. Sehr stark und hoch wachsende Pflanze. Ist für ein Spalier sehr geeignet. Kleine kurze Trauben. Liebhaberpflanze.	images/Gaio_de_Melon.jpg
+28	Berner Rosen	Stabtomate - Mittelspät reifende, fleischige Tomate mit rosaroten Früchten. Guter, aromatischer Geschmack mit süßem Anflug. Saftig-weiche Früchte. Kräftiger Wuchs, neigt zum Wuchern und wird 2 m hoch. Ertragreiche Stabtomate. Kreuzungsgefährdet. Fruchtdurchmesser ca. 8 cm. Rund bis leicht plattrund. Zahl der Fruchtkammern variiert: 3-7. Durchschnittliches Gewicht: 200 g. 4-6 Früchte je Traube. Schweizer Gartensorte, die einen Warmen, trockenen Standort benötigt.	\N
+29	Bertas Gefleckte	Stabtomate - Mittelgroße rotgelb unregelmäßig gefleckte Stabtomate. Recht hoher Wuchs.	images/Bertas_Gefleckte.jpg
+30	Bertas Rote	Stabtomate - Ertragreiche, rote Stabtomate von etwa 1,9 m Höhe. Gute Sorte mit eher säuerlichem Geschmack. Relativ feste Frucht. Nicht ganz platzfest, daher unter Dach anbauen oder auf regelmäßige Wasserversorgung achten bzw. vor starken Regenfällen die noch nicht ganz reifen Früchte abnehmen.	\N
+31	Earl of Edgecombe Orange	Stabtomate - Eine der schönsten Fleischtomaten. Relativ, drahtig wachsende Pflanze. Blätter relativ klein. Frucht reif bernstein-orangegelb, gerippt, mittelgroß bis groß, sehr fleischig, viele Fruchtkammern. Unreife Früchte von hellgelber Farbe. Ganz ungewöhnlich in der Farbe. Wunderschön.  Mittlerer Ertrag an etwa 140 g bis 180 g schweren Früchten. Soll aus Neuseeland stammen.	images/Earl_of_Edgecombe.jpg
+32	Earl of Edgecombe Red	Stabtomate - Eine der schönsten Fleischtomaten. Relativ, drahtig wachsende Pflanze. Blätter relativ klein. Frucht reif rot, gerippt, mittelgroß bis groß, sehr fleischig, viele Fruchtkammern. Unreife Früchte von hellgelber Farbe. Ganz ungewöhnlich in der Farbe. Wunderschön. Mittlerer Ertrag an etwa 140 bis 180g schweren Früchten. Soll aus Neuseeland stammen.	images/Earl_of_Edgecombe.jpg
+33	Ei von Phuket	Stabtomate - (Pink Plum) Eine der ungewöhnlichsten Stabtomaten überhaupt. Die zunächst wässern-gelblichen, länglich-eiförmigen Früchte wandeln ihre Früchte wandeln ihre Farbe von Hellrosa in Pink. Diese Sorte fällt im Garten zwischen anderen Tomaten aufgrund der Fruchtfarbe sofort auf. Es entwickeln sich Trauben von 8 bis 14 Früchte zu je 25g. Kräftiger, gesunder Wuchs. Von der Insel Phuket im Andamanischen Meer. Trotz der tropischen  Herkunft sicher und gut in unserem Klima wachsend. Reife ab Ende Juli.  Guter Ertrag. Stabile und platzfeste Frucht.	images/Ei_von_Phuket.jpg
+34	El Salvador 1 u. 5	flaschenförmige Auslese Stabtomate - Langgestreckte, etwa 7 cm lange, flaschenförmige Früchte von roter bis scharlachroter Farbe. Unten mit stumpfer Spitze. Sehr leicht zu prüfen. Kuriose Sorte. Gewicht etwa 30-35 g. Wuchshöhe etwa 1,80 m.	images/El_Salvador.jpg
+35	Elbe Braun	Stabtomate - Alte deutsche kartoffelblättrige Stab-Fleischtomate mit flachrunden, mittelgroßen, dunkelroten bis braunen Früchten.  Wuchshöhe: Höhe etwa 1,80 m bis 2,20 m	images/Elbe.jpg
+36	Elberta Girl	Stabtomate - Exotische Stabtomate, die vollkommen mit einem haarigen Pelz übersät ist- und zwar sowohl die Früchte als auch Blätter und Stängel! Zusätzlich sind die Früchte gelb-rot gestreift. Die Pflanzen sind mittelhoch und locker im Wuchs. Die fleischigen, oft 100 g schweren Früchte sind länglich bis herzförmig und haben meist 3 Fruchtkammern. Eine echte Rarität für den erfahrenen Tomatenfan. Braunfäuleanfällig durch die Behaarung.	images/Elberta_Girl.jpg
+37	Elfenbein Ei	Stabtomate - Amerikanische Sorte mit eiförmigen, elfenbeinfarbenen Früchten. Gesund im Wuchs. Sehr guter Ertrag. Hoch wachsend bis etwa 2,20 m. Früchte ca. 6 cm bis 7cm hoch und 3 cm bis 4 cm im Durchmesser.	images/Elfenbein_Ei.jpg
+38	Emeraude	Stabtomate - Groß fruchtige, grüngelbe Stab-Fleischtomate aus Frankreich mit vielen Fruchtkammern. Mittelhoher Ertrag. Sehr süß wie sehr aromatisch schmeckend. Starker Wuchs von etwa 1,70 m bis 2,00 m.	images/Emeraude.jpg
+39	Extra Erly	Stabtomate - Obsttomate von mittlerer Höhe (etwa 1,80 m ). Rote Frucht von ovaler Form, etwa 32 mm hoch und 28 mm breit. Gewicht etwa 15 g. Eine Sorte von besonders früher Reife ab Mitte Juli und mit zarter Schale. Trauben von bis zu 22 Früchten. Platzfest, ohne Stiel zu ernten. Feste, haltbare Frucht. Gute Sorte für einen Frühertrag.	images/Extra_Early.jpg
+40	Evergreen	Stabtomate - Gerippte gelbgrüne Fleischtomate mit grün schimmerndem, smaragdgrünem Fruchtfleisch. Aromatisch und süß schmeckend. Die Früchte wiegen oft über 200 g, sind platt und nicht übermäßig gerippt. Bei Reife oben vom Stielansatz her immer noch grün, vom Blütenpol her gelborange. Die Fruchtstände sind oft sehr üppig, fächerförmig verzweigt und sollten  etwas ausgedünnt werden (kleine und unförmige Früchte wegschneiden). Eine kuriose Stabtomate, die mittelfrüh reift, hoch und oft überaus  stark wächst. Herkunft: USA.	images/Evergreen.jpg
+41	Fablonelystnyj	Stabtomate - Eine Miniatur-Fleischtomate, die nur 18-20 g wiegt. Die Frucht hat meist 3 Rippen, 3 bis 4 Fruchtkammern und ist plattrund. Durchmesser 3 bis 4 cm. Höhe der Frucht etwa 25 mm. Meist einfache, teils aber auch 1x gegabelte Fruchtstände 6 bis 10 Früchte je Wickel. Eine Sorte mit sehr kräftigem, stabilem Wuchs (oft über 2,50 m) und  Kräftigem Haupttrieb. Dennoch lockerer Wuchs. Gesund und  widerstandsfähig gegen Krankheiten. Höherer Ertrag bei mehrtriebiger  Erziehung am Spalier oder an 2 bis 3 Stäben. Kuriose, robuste Sorte mit schönen, leuchtenden Früchten.	images/Fablonelystnyj.jpg
+42	Figaro	Stabtomate - Bis 400 g schwere, runde, abgeflachte, gelb-orange Früchte mit rotem Zentrum. Sehr aromatisch. Eine der besten zweifarbigen Sorten. Am deutlichsten wird die Zweifarbigkeit bei aufgeschnittenen Früchten. Sehr viele Fruchtkammern. Höchst dekorative und ungewöhnliche Sorte.	images/Figaro.jpg
+43	Fonarik	Stabtomate - Gelborange, lang gestreckt, eiförmig mit Spitze. Die Fruchtform ist eckig-oval, zum Blütenpol hin etwas verjüngt, dann folgt ein Nippel einer Brustwarze gleich, der an der Basis manchmal etwas eingesunken ist. Bei vollreife geht die gelbe Farbe in ein herrliches Orange über. Die Frucht hat einen Durchmesser von 4 - 4,5 cm und ist zwischen 5 und 7  cm lang, 2 Fruchtkammern, eine dicke Mittelachse und eine dicke  Fruchtwand. Eine begehrte und schöne Stabtomate.	images/Fonarik.jpg
+44	Frisco Fog	Stabtomate - Roter Massenträger mit etwa 6,5 cm großen Früchten. Wird etwa 1.80 m hoch. Auch für Lagen mit kühler Witterung.	images/Frisco_Fog.jpg
+45	Frühzauber	Stabtomate - Frühe und Reichtragende rote Stabtomate mit runden bis leicht plattrunden Früchten. Am Stielansatz leicht kantig. Mittelgroß, etwa 45 bis 60 g, schön durchfärbt, mild und saftig. Kräftiger Wuchs von etwa 2,10 m. Gute Gartensorte mit Trauben von 6 bis 8 Früchten. Lange Vegetationsdauer bis zum Frost, trotz der frühen Reife.	images/Fruehzauber.jpg
+46	Fucco d´ Oro Cream	Stabtomate - (Feuergold) Glasiggelbe, sehr Reichtragende Stabtomate aus der Toskana mit extremen platten Früchten und von mittelhohem bis hohem Wuchs. Ist eine Sorte für Sammler kurioser Tomaten. Sehr selten kommen so platte Früchte bei gelben Sorten vor. Auch das glasige, durchschimmernde Gelb ist sehr selten. Kleinere Fleischtomate von etwa 60-80 g. Sehr guter Wuchs. : Früchte nicht zu spät ernten, sie werden sonst matschig. Ernte Beginn ab Ende Juli. Früchte mit Stiel abschneiden.	images/Fucco_dOro_Feuergold.jpg
+49	Gelbe Galapagos - Wildtomate	Stabtomate - Kleine, ovale, meist birnenförmige Wildtomate mit Spitze. Etwa 4 Gramm. Gigantische büschelförmige Wickel. Massenträger, hat ca. 100 bis 150 Tomaten je Wickel. Soll von den Galapagos-Inseln stammen und salzverträglich sein.	images/Galapagos_Wildtomate.jpg
+50	Galina	Stabtomate - (Galinas´ Sibirian Cherry) Rarität. Eine der Widerstandsfähigen, gelben Stabtomaten mit kartoffelblättrigem Laub. Sehr schmaler, aufrechter wuchs. Wird bis 2,70 m hoch. Saftig, reich- und lang tragend. 8 bis 13 Früchte je Traube. Die runden Früchte sind glänzend mittelgelb, sehr fest und wiegen etwa 11 bis 15 g. Durchmesser etwa 28 mm. Erste Ernte ab Mitte Juli.	images/Galinas_Sibirian_Cherry.jpg
+51	Geflammte Paprikaförmige	Stabtomate - Füll- oder Paprikatomate, paprikaförmige, hell- bis mittelrote Früchte mit gelben Streifen. Mittelgroß, meist hohl und mit dicker Fruchtwand. Gerippt. Mittelspät, doch lang und reich tragend. Unter Glas sehr hoher Ertrag mit teils riesigen Früchten. Rarität, da mehrere seltene Eigenschaften zusammenkommen. Zum Füllen wie Paprika oder Salate. Dekorative Sorte.	images/Geflammte_Paprikafoermige.jpg
+52	Gelbes Birnchen	Stabtomate - Yellow Pershaped Stabtomate mit gelben, oval-birnenförmigen Früchten von etwa 8 g. Früchte hängen in Trauben von bis zu 12 Früchten.\r \r Alte deutsche Obsttomate. Süßer und aromatischer Geschmack.	images/Gelbe_Birne.jpg
+53	Gelbe Dattelweintomate	Stabtomate - Stabtomate mit gelben, oval-birnenförmigen Früchten von etwa 5 g. Früchte hängen in Trauben von bis zu 80 Früchten. Alte deutsche Obsttomate.  Süßer und aromatischer Geschmack.	images/Gelbe_Dattelweintomate.jpg
+54	Gelbe Saure	Stabtomate, Spaliertomate - Wahrscheinlich eine Wildtomate mit extremen Wuchs-Eigenschaften. Sehr hoch bis 4,00 m bei eintriebiger Erziehung. Sehr viele Trauben mit kleinen ca.1,5 cm großen gelben Tomaten. Leider wie der Name schon sagt sehr sauer. Freies Wachstum am Spalier ohne ausgeizen bringt mehr Ertrag.	\N
+55	Gelbe, Langtraubige Johannisbeertomate	Spaliertomate, Wildtomate  Klein fruchtige Stabtomate mit runden, ovalen und teils auch länglichen, etwa 3 bis 4 g schweren Früchten in ungewöhnlich langen, oft weit über 30 cm, ungefächerte Trauben zu je 22 bis 30 Früchten. Die Hochwachsenden 2,5 m und mehr, locker aufgebauten Pflanzen bringen  bei Spaliererziehung einen hohen Ertrag und reduziert das Höhenwachstum.	images/Gelbe_langtraubige_Johannisbeertomate.jpg
+56	Gelbe Perle	Stabtomate - Kleine, runde, sehr grell, leuchtende gelbe Obsttomate. Eine kleinfruchtige Sorte. Die 2 bis 3 cm großen Früchte hängen in einfachen Trauben zu 8 bis 10 Stück. Saftig und würzig im Geschmack. Mittelhoher Wuchs. Liebhabersorte. Sehr platzfest.	images/Gelbe_Perle.jpg
+57	Gelber Favorit	Stabtomate - Sehr schöner, herrlich gelber Massenträger. Süßsaure bis mild schmeckende Stabtomate von mittlerem wuchs bis 2,00 m und mit etwa 50 bis 65 g schweren Früchten. Sehr einheitliche Sortierung, 2 bis 3 Fruchtkammern, manchmal leicht hochrund, sonst völlig rund, fest und saftig. Beachtlich platzfest.	\N
+58	Gelbes Herz	Stabtomate - Gelbe Riesenfleischtomate. Mittelhoher Wuchs. Bis 500 Gramm schwer. Große, glatte, meist nicht gerippte Frucht. Aus Russland. Pro Wickel nur 2 bis 3 Früchte belassen.	images/Gelbes_Herz.jpg
+59	Geogien 2	Stabtomate - Sorte von einem Berghof in Georgien. Eine flachrunde rosarote bis rote Stabtomate. Sie ist flachrund, schwach gerippt am Ansatz, mittelfrüh reifend und etwa 100 g schwer.	images/Gerorgien_2.jpg
+60	Georgia  Streak	Stabtomate - Goldgelb, pink gefleckt, süßfruchtig köstlich, groß, reich tragend, früh. Eine der kuriosesten und schönsten Fleischtomaten überhaupt. Die plump herzförmige Frucht hat eine goldorange Grundfarbe und eine orangerote Flammung. Gewicht etwa 80. Sehr glatte Haut, schnittfeste Frucht. Nur mit Stiel zu Ernten. Rarität.	images/Georgia_Streak.jpg
+61	Ildi	Stabtomate - Cocktailtomate mit ovalen, gelben Früchten. Fächerförmige Fruchtstände, die wegen der langen Lagerfähigkeit der Früchte jeweils komplett abgeschnitten werden können. Ausgezeichneter, süß-aromatischer Geschmack. Massenträger, etwa 40 bis100 Früchte je Wickel.	images/Ildi.jpg
+62	Indian Moon	Buschtomate - Kleinfruchtige, leuchtend tiefgoldgelb bis orange Buschtomate von früher Reife ab Anfang Juli. Die Früchte sind rund. Normalblättrige, niedrige, relativ kleine Pflanze. Bei Überreife werden die Früchte rotfleckig.	images/Indian_Moon.jpg
+63	Ines Rote Eiertomate	Stabtomate - Ketschuptomate mit gesundem, hohem Wuchs und langer Ertragsdauer. Geschmacklich nicht überragend. Feste, mittelgroße und länglichovale Früchte. Ertragreich. Blätter relativ stabil gegenüber der Braunfäule - z. T. werden eher die Früchte befallen.	\N
+64	Isis Candy	Stabtomate - Kirschstabtomate 1,8 bis 2,0 m und höher mit sternförmig rotgelb gefleckten, kleinen Früchten. Runde, bis etwa platte Frucht im Durchmesser 2,5 bis 3 cm und 25 bis 30 g Gewicht. Dabei robust, süß und saftig. Das kräftige Laub steht relativ waagerecht. Sehr seltene Fruchtfarbe.	images/Isis_Candy.jpg
+65	Italienische Spaliertomate mit Spitze	Stabtomate, Spaliertomate - Die Pflanzen tragen am besten, wenn man sie am Spalier zieht. Sie können dann 2 m hoch werden. Viele kleine, breit tropfenförmige Tomatchen mit Spitze. Wachsen am besten an warmen und vor Regen geschützten Plätzen.	images/Italienische_Spaliertomate.jpg
+66	Jana Gelb	Stabtomate - Eiförmige, gelbe Früchte, 30 bis 50 g schwer. Höhe der Frucht etwa 50 bis 60 mm, Durchmesser etwa 40 mm. Leicht zu ernten. Eine platzfeste und einheitlich geformte, sehr empfehlenswerte Gartensorte.	images/Jana.jpg
+67	Jana Rot	Stabtomate - Eiförmige, rote Früchte, 30 bis 50 g schwer. Höhe der Frucht etwa 50 bis 60 mm, Durchmesser etwa 40 mm. Leicht zu ernten. Eine platzfeste und einheitlich geformte, sehr empfehlenswerte Gartensorte.	\N
+68	Japanisches Ei	Stabtomate - Eiförmige, gelbe Früchte, 30 bis 50 g schwer. Höhe der Frucht etwa 50 bis 60 mm, Durchmesser etwa 40 mm. Leicht zu ernten. Gut druck- und schnittfest. Wenig Kerne. 2 Fruchtkammern. Die Frucht ist oben schmaler und wird nach unten hin breiter. Schöne, Starkwachsende, dickwandige und Reichtragende Stabtomate. Eine platzfeste und einheitlich geformte, sehr empfehlenswerte Gartensorte.	images/Japanisches_Ei.jpg
+69	Japonskij Trüffel orange	Stabtomate - Eine japanische Sorte mit orange, großen Früchten in der Form eines Tabakbeutels. Kurios in der Form und in der Farbe. Wüchsige Sorte.	images/Japonskij_Trueffel_orange.jpg
+70	Japonskij Trüffel schwarz	Stabtomate - Eine japanische Sorte mit dunkelbraunen, großen Früchten in der Form eines Tabakbeutels. Kurios in der Form und in der Farbe. Wüchsige Sorte.	images/Japonskij_Trueffel_schwarz.jpg
+71	Jasnaja	Stabtomate - oval mit Spitze, fest, hoher und lang anhaltender Ertrag. Für diese russische Sorte kann man sich nur begeistern. Makellos in Farbe und Form, völlig problemlos und schnell ohne Siel zu ernten, große, zum Teil gegabelte, lange Fruchttrauben mit 8 bis 11 Früchten. Sehr einheitlich in der Sortierung. Guter Ertrag. Mittelfrüh. Gesunde, mannshohe, im Herbst äußerst kälteverträgliche Pflanzen.	images/Jasnaja.jpg
+72	Jaune des Andes	Stabtomate (Poivron Jaune) Orangerote bis goldfarbene, große Früchte etwa 80 g, bis 8 cm lang und 5 cm breit von spitzovaler „Andenhorn- Form“, wie Spitzpaprika (oben gleich klobiger, also eher keilförmig). Buschiger Typ mit jeweils 3 bis 5 Früchten je Traube. Am Blütenpol mit ausgezogener Spitze.	images/Jaune_des_Andes.jpg
+73	Jericas Gelbe	Stabtomate - Robuste Stabtomate. Große, gelbe Frucht gleich klobiger Paprikas. Viele Fruchtkammern. Stark gerippt. Guter Geschmack, teils hohle Früchte.	images/Jericas_Gelbe.jpg
+74	Johannisbeertomate (rote)	Stabtomate, Spaliertomate - Mehrtriebig zu ziehende Sorte, die selbst dann noch über 2m hoch wird. Früchte etwa 13 bis 15mm groß, glänzend rot! Früchte in oft einfachen, teils aber auch 1 bis 2x gegabelten Trauben von 20 bis 30cm lang. Süß-würzige, knackige Frucht. Platzfest. Wüchsig, gesund, früh und lang tragend. Ideale, recht robuste Naschsorte für Kinder und zur Dekoration.	images/Rote_Johannisbeertomate_2.jpg
+75	Junifreunde	- Ein Massenträger mit Früchten von rotbrauner Farbe. 30 bis 40g schwer, bis 45mm im Durchmesser. Feste Schale, relativ kleine, meist runde Früchte. Lang tragend trotz der frühen Reife. Erste Ernte ab Mitte Juli. Mittelhoher Wuchs. Süßlicher, schmelzender Geschmack.	images/Junifreude.jpg
+76	Kaki Coing	- Paprikatomate. Große, paprikaförmige, festfleischige, orangefarbene, mildaromatische, hohle Früchte.	images/Kaki_Coing.jpg
+77	Karaganda	Stabtomate - Diese Fleischtomate hat große orangerote bis rote Früchte. Sie ist fleischig und Kernarm.	images/Karaganda.jpg
+78	Karolewskij	Stabtomate - Roter Massenträger mit etwa 6,5cm großen Früchten. Wird etwa 1.8m hoch. Auch für Lagen mit kühler Witterung.	\N
+79	Kazhak Schalavije	Stabtomate - Diese alte Sorte stammt aus Kasachstan. Die goldenen Früchte haben rote Schultern. Darauf bezieht sich die Bezeichnung „Schalavije“, denn russische Frauen tragen im Winter gern einen roten Schal. Oft über 500g schwere geflammte Fleischtomate.	images/Kazhak_Schalowije.jpg
+80	Kelloggs Breakfast	Stabtomate - Große, abgeflachte, orange Fleischtomate von D. Kellogg aus Reford/Michigan. Reich tragend und ausgezeichnetes, süßes Aroma.	\N
+81	Kelloggs West Virginia	Stabtomate - Eine überaus Reichtragende Stabtomate. Normalblättrig. Die Früchte sind rot, meist rund, aber auch zum Teil abgeflacht oder leicht gerippt.	images/Kelloggs_West_Virginia.jpg
+82	Kiev	- Würzige rote Sorte. Widerstandsfähig. Für den Anbau im Freiland und auch im Gewächshaus.	images/Kiev.jpg
+83	Kirschgroße Gelbe Traube	Stabtomate - Ein Massenträger mit gigantischen Klumpentrauben von teils mehr als 100 Früchten. Nahezu kirschgroß, gelb, leicht oval und gut platzfest. Saftig, würzig und süß schmeckend. Vermutlich eine verbesserte  . Meist über 2,00 m hoch wachsend. Relativ früh reifend.	images/Kirschgrosse_Gelbe.jpg
+84	Kleine schwarze Fleischtomate	Stabtomate - Stark gerippte, sehr platte Frucht von tiefrot-brauner Farbe. Viele Fruchtkammern. Stabtomate von mittelhohem Wuchs. Eine der dunkelsten Sorten.	images/Kleine_Schwarze_Fleischtomate.jpg
+85	Kuba	Stabtomate - Rot, birnenförmige, fest, reich tragend, geeignet für Pasta. Die hellroten, meist über 6cm langen und 4 cm starken Früchte sind eher pflaumen- als birnenförmig, am Blütenpol mit stumpfer Spitze. um 50 g, teilweise auch schwer. Sehr leicht ohne Stiel zu ernten. In der Regel keine Platzer und auch keine Risse. Eher Ketschup- und Salat-Tomate.	images/Kuba.jpg
+86	Lagertomate gelb-rot	Stabtomate - Eine Sorte mit eiförmigen, geflammten, kleineren Früchten. Sind bis zu 8 Monaten lagerfähig. Leider wenig Geschmack.	\N
+87	Lange dünne Bauerntomate aus Honduras	Stabtomate - Beachtliche mittelamerikanische Landsorte mit dünnen, langen, kleineren, roten Früchten. Sehr pflegeleichte Gartensorte, die vielfach gelobt wird. Etwas lockerer Wuchs, der vermutlich etwas vor Braunfäule schützt. Mittelhoher, doch zeitiger und beachtlich lang andauernder Ertrag. Gut platzfest.	images/Lange_duenne_Bauerntomate.jpg
+88	Lange Große Kubanische	Stabtomate - Rote Stabtomate mit länglicher Fruchtform. Riesige, längliche Keilform. Große und schlanke, spitze Paprikatomate. Sehr beachtliche und kuriose Sorte. Seltenheit. Die Sorte sollte am besten unter Dach an vollsonniger Stelle gezogen werden. Eine Sorte für den fortgeschrittenen Tomatenfreak und für Ausstellungen.	\N
+89	Liana Orange	Stabtomate - (Liana Orangewaja) Dünn keilförmig bis eher länglich-flaschenförmige Tomate von nicht sehr hohem Wuchs. Herrlich orange Farbe! Ideal zum Verkauf der schönen Früchte.	images/Liana_Orange.jpg
+90	Libanesische Bergtomate	Stabtomate - Kräftige Stabtomate mit bis zu 500g schweren, roten Früchten. Gutes Aroma. Wenig krankheitsanfällig. Mittelspäte Ernte ab etwa Mitte August aber dafür sehr lecker und guter Ertrag.	images/Libanesische_Bergtomate.jpg
+91	Plum Lemon	Kuriose, mittelhohe Stabtomate. Zitronengelbe und Zitronenförmige Früchte mit Spitze, die in üppigen, breiten Trauben hängen. Meist zwei Fruchtkammern. Innen hohl, dicke Fruchtwand. Absolut platzfest und gut lagerbar. Zwischen 50 und 80 g schwer, durchschnittlich 55 g. Mittlerer Ertrag. Reife ab Mitte August. Gut zum Füllen geeignet.	images/Plum_Lemon.jpg
+92	Polnischer Riese	- Eine große, vielkammerige, dunkel lilarot- himberfarbige Stabtomate aus Polen mit runden, nicht gerippten Früchten. Sehr kräftige und wüchsige, kartoffelblättrige Pflanzen. Durchschnittliches Fruchtgewicht etwa 300 g. Durchmesser etwa 11 cm. Sehr guter, süß-saftiger Geschmack. Kleine Fruchtkammern, wenige Samen.	images/Polnischer_Riese.jpg
+93	Poma Amoris	- Eine niedrige Stabtomate von etwa 1,2 m mit gelben 10 bis 50 g schweren mild schmeckenden Früchten.	\N
+94	Pomodore di Cantenna	- Platte Fleischtomate. Eine mittelgroße bis große rot- bordeaux farbene Fleischtomate mit platten, gerippten Früchten und mit extrem wulstig-großem Nabel am Blütenpol. Ungewöhnliche Fruchtform. Sehr schöne Form und Farbe. Hohe Pflanze von rund 2,5 m. Frucht wird bis 9 cm im Durchmesser, dabei 5  bis 6 cm hoch. Gewicht in etwa 200 g. Wenig Platzer und Risse.	images/Pomodore_di_Cantenna.jpg
+95	Pomodoro	Platte Fleischtomate. Eine mittelgroße bis große rot- bordeaux farbene Fleischtomate mit platten Früchten und mit extrem wulstig-großem Nabel am Blütenpol. Ungewöhnliche Fruchtform. Sehr schöne Form und Farbe. Hohe Pflanze von rund 2,5m. Frucht wird bis  9cm im Durchmesser, dabei 5 bis 6cm hoch. Gewicht in etwa 200g. Wenig  Platzer und Risse.	images/Pomodore.jpg
+96	Ponderosa Golden	- Kräftige Stabtomate mit mittelgroßen bis sehr großen, wohlschmeckenden gelborange Früchte mit roter Flammung.  Alte Sorte aus Virginia. Platt und oft stark gerippt. Gewicht von 200 bis 500 g. Seltene Fruchtfarbe.	images/Ponderosa_Golden.jpg
+97	Prize of the Trial	- Eine der schönsten orangefarbigen Stabtomaten. Die Früchte sind nicht immer gleichmäßig groß, doch herrlich orange durchfärbt. Meist rund bis etwas platt. Mittelgroße, in der Tendenz aprikosengroße Frucht. Mittelhoher Wuchs.	images/Prize_of_the_Trial.jpg
+98	Purple Price	Eine Pflanze mit runden und sehr dunklen braunroten Früchten, oben mit schwacher, bis zur Fruchtmitte reichender Kappe. Gewicht variiert und schwankt zwischen 80 und 150 g. Viele Fruchtkammern. Mittelfrüh reifende und hoch wachsende Stabtomate. Guter mild-süßer Geschmack.	images/Purple_Prince.jpg
+99	Purple Smudge	- Rund, rot-purpurn gefleckt, sehr aromatisch, 300g, langer, hoher Ertrag. Eine sehr ungewöhnlich gefärbte Frucht, hellere und dunklere Flecken, die sich ohne System abwechseln. Tendenziell ist die recht dunkle Frucht aber purpurn bis weinrot mit vom Stielansatz her mehr oder weniger intensiven dunkelgrünen Streifen. Feste Frucht. Guter Ertrag. Kaum Platzer.	images/Purple_Smudge.jpg
+100	Purpur Kalebasse	- Stark gerippte, sehr platte Frucht von tiefrot-brauner Farbe. Viele Fruchtkammern. Stabtomate von mittel hohem Wuchs. Eine der dunkelsten Sorten.	images/Purpur_Kalebasse.jpg
+101	Mirabelle Blanche	Stabtomate - “Mirabell weiß”  Viele gelbweiße, ziemlich kleine Früchte bringt diese mittelhohe Stabtomate hervor. Sehr seltene Sorte, die leider erst mittelspät trägt. Die Früchte haben mehrere Fruchtkammern und sehen wie weiße Miniatur-Fleischtomaten, also leicht plattrund aus. Geschmack mild obstig bis fruchtig. Geschützter Anbau ist wichtig.	images/Mirabelle_Blanche.jpg
+102	Miss Kennedy	Stabtomate - Eiförmig-ovale bis rundliche, sehr dunkle Stabtomate mit olivfarbener, geflammter Kappe. Sehr reich tragende und schöne Sorte. Die Kappe ist sonnenseits stärker ausgeprägt, ebenso die dunkle Farbe. Feiner süßer Geschmack, wenig Säure, obstartig. Schmelzendes Fruchtfleisch.	images/Miss_Kennedy.jpg
+103	Moneymaker	Stabtomate - Hellfruchttyp mit üppigem Fruchtbehang, teils büschelige Trauben mit bis zu 12 Früchten. Mittelgroße 55 mm, runde Früchte von roter Farbe mit 2 Fruchtkammern und ohne Grünkragen. Bis 80 g je Frucht sind möglich. Massenträger. Ideal für Freiland.	\N
+104	Mc-Mullen Rose	Stabtomate - Rosarote, Wohlschmeckende Früchte, die bis 100 g wiegen können. Früher und lang anhaltender Ertrag. Robuste Pflanzen. Historische Sorte aus den USA.	images/Mc_Mullen_Rose.jpg
+105	Old German	Stabtomate - Bis 400 Gramm schwere, runde, abgeflachte, gelb-orange Früchte. Sehr aromatisch. Eine der besten zweifarbigen Sorten. Am deutlichsten wird die Zweifarbigkeit bei aufgeschnittenen Früchten. Sehr viele Fruchtkammern. Höchst dekorative und ungewöhnliche Sorte.	images/Old_German.jpg
+106	Mission Dyke	Stabtomate - Goldorange, wüchsige Fleischtomate. Plattrund, selten gerippt, bis 300g schwer.	images/Mission_Dyke.jpg
+107	Morano	Stabtomate - Eine Stabtomate mit orangegelben, runden, sehr glatten und glänzenden Früchten.	images/Morao.jpg
+108	Morning Love	Stabtomate - Kleinfruchtige Sorte mit pflaumenförmigen, dickwandigen, knackigen Früchten von glänzend, roter Farbe. Sehr hoch wachsend etwa 2 bis 2,5 m. Die Pflanze kann auch mehrtriebig, bzw. am Spalier gezogen werden.	images/Morning_Love.jpg
+109	Mrs.Pinky	Stabtomate - Pink, köstlich süßsaftig, 50 bis 200 Gramm. Wird sehr hoch. Gesundes Wachstum..	images/Mrs_Pinky.jpg
+110	Multi Color	Stabtomate - Sehr große Fleischtomate mit orangegelben Früchten, die rot marmoriert, gefleckt sind. Kräftig wachsende Sorte, die höchst ungewöhnlich gefärbte, matt glänzende Früchte hervorbringt. Auch beim Durchschneiden der Frucht zeigt sich die Mehrfarbigkeit. Das Zentrum ist orangerot, die Fruchtwände und Samenkammern sind gelb. Die bis 400 g schwer werdenden Früchte sind nur mit der Schere zu ernten.	images/Multi_Color.jpg
+111	Nebrasca Wedding	Stabtomate - Große, 150 bis 200 g schwere, gold- bis goldorangefarbene Früchte. Alte, sehr beliebte Sorte mit hochrunden bis runden, teilweise auch leicht platten, saftigen Früchten mit besten Geschmackseigenschaften. Anfällig für Blütenendfäule, daher Pflanzen gleichmäßig mit Wasser versorgen und im Winter etwas Kalk streuen. Kaum Platzer oder Risse. Hohe kräftige Pflanze.	images/Nebrasca_Wedding.jpg
+112	Nigeria	Stabtomate - Kleine rotfruchtige Fleischtomate von 50 bis 100 g. Hoch wachsend und gesund. Kaum Platzer oder Risse. Hohe kräftige Pflanze.	images/Nigeria.jpg
+113	Nothern Lights	Stabtomate - Frühe, gelb-rosa Fleischtomate. Sehr große, bis 500 g, platte Frucht, die im grünen Zustand von dunkelgrünen Streifen überzogen ist. Mehr oder weniger gerippt. Ertragreich in warmen Sommern. Sehr aromatisch. Ideal für Südwände.	images/Northern_Lights.jpg
+114	Olympisches Feuer	Stabtomate - Runde, wunderschön rot-goldfarben geflammte Sorte aus Russland. Sehr ertragreich und wohlschmeckend. Für alle Verwendungszwecke geeignet. In warmen Sommern ein Massenträger.	images/Olympisches_Feuer.jpg
+115	Old Ivory Egg	Stabtomate - Rote fast runde, saftig-süße Stabtomate. Ertragreich und gesund wachsend.	images/Old_Ivory_Egg.jpg
+116	Old Wyandotte Orange	Stabtomate - Große, gelborange Stab-Fleischtomate von würzigem Geschmack. Eine sehr hoch wachsende richtig leckere Tomate. Erste Ernte ab etwa Mitte August.  Früchte bis ca. 500 Gramm.	images/Old_Wyandotte_Orange.jpg
+117	Old Wyandotte Red	Stabtomate - Große, rote Stab-Fleischtomate von würzigem Geschmack. Eine sehr hoch wachsende richtig leckere Tomate. \r \r Erste Ernte ab etwa Mitte August. Früchte bis ca. 500 Gramm.	images/Old_Wyandotte_Red.jpg
+118	Old Yellow Candystriped	Stabtomate - Kräftig wachsende, ca. 2,1 m hohe Stabtomate mit herrlich gelben bis knallgelben, unterschiedlich geformten Früchten. \r \r Ein Teil ist rund, ein anderer gerippt.	images/Old_Yellow_Candystriped.jpg
+119	Olympische Flamme	Stabtomate - Runde bis Plattrunde, wunderschön rot-goldfarben geflammte Sorte aus Russland.  Fleischig oft zwischen 200 und 300 Gramm.	images/Olympische_Flamme.jpg
+120	Orange Plum	Stabtomate - Eine Pflaumenförmige, orange Sorte. Die Früchte färben sich bei Vollreife leuchtend orange. Sehr reich tragend. Fruchtgröße etwa 7,5 x 4 cm. Leicht zu ernten. Dicht besetzte Wickel mit 7 bis 9 Früchten. Gute Gartensorte für trockene Plätze. Mittelfrühe Reife.	images/Orange_Plum.jpg
+121	Southpart	Eine hohe Stabtomate mit roten, kleinen Früchten an langen Trauben. Am Fruchtansatz bei vollreife gelb geflammt. Ab 60 cm Spalierförmig ziehen erhöt den Ertrag und begrenzt das Höhenwachstum.	images/Southport.jpg
+122	Splash of Cream	Buntlaubige Sorte und Rotfruchtige Stabtomate, deren Laub weiß-grün panaschiert ist. Auch der Stängel ist gestreift. Mittlerer Ertrag von etwa 40 bis 50g schweren roten und runden Früchten. Saftig. Sehr auffälliges Laub. Eine Sorte für Sammler und zur mehrtriebigen Erziehung unter Glas.	images/Splash_of_Cream.jpg
+123	Sosulka	Rein gelbfruchtige, recht reichtragende Flaschentomate mit Spitze, manchmal etwas kantig. Drahtiger, schlanker Wuchs. Feingliedrige Blätter. Sehr schöne, eigenwillige Fruchtform, die zwischen herzförmig und bananenförmig schwankt. Üppige Trauben mit schweren Früchten, die zwischen 100 und 300 Gramm wiegen variabel. Völlig platzfest. Äußerst fleischig, mild-süß und fast keine Samen.  Anfällig auf Blütenendfäule.	images/Sosulka.jpg
+124	Star Orange	Flachrunde, gelbrot marmorierte, saftige Stabtomate von süßlich-würzigem Geschmack.	images/Star.jpg
+125	Striped Carven	Fülltomate - Geflammte Paprikatomate, die besonders im Grünstadium mit dunklen, bei Reife hellen Längsstreifen durchzogen ist. Die später rot werdende Frucht ist innen hohl, wie Paprika und kann zum Füllen verwendet werden. Auch die Fruchtform, länglich-oval mit Rippen und Fruchtgröße erinnert an Gemüsepaprika.	images/Striped_Carven.jpg
+126	Sun Drop	Größere, orangefarbene Stab-Obsttomate mit langen Fruchtständen und vielen, süßen Früchten. Langer Ertrag. Fruchtgewicht etwa 35 bis 45 Gramm. Meist etwas hochrund, Durchmesser etwa bis knapp über 4 cm. Eine wunderschöne, toll gefärbte Frucht. Kein Grünkragen, kaum Platzer. Bestens durchfärbt.  Leicht ohne Stiel zu ernten. Gesunder, kräftiger Wuchs.	images/Sun_Drop.jpg
+127	Star Rot	Flachrunde, rote, saftige Stabtomate von süßlich-würzigem Geschmack.	\N
+128	Swajawa	Wildtomate -Birnenförmige, pflaumenförmige rote Wildtomate. Früchte 8 bis 12g schwer. Relativ widerstandsfähig gegenüber Braunfäule. Feines, hellgrünes Laub. Schlanker, drahtiger Wuchs von etwa 2,3 bis 3 m. Fächerförmige Trauben. Massenträger.	\N
+129	Talent Cream	Eine Stabtomate mit großen, feingliedrigen Blättern. Kräftiger Wuchs. Frucht platt, bis 6 cm Durchmesser. Cremeweiß. Mild-süß. Meist 3-kammerig. Reich tragend und gesund.	images/Talent_Cream.jpg
+130	Talent Gelb	Eine Stabtomate mit großen, feingliedrigen Blättern. Kräftiger Wuchs. Frucht platt, bis 6 cm Durchmesser. Gelb. Mild-süß. Meist 3-kammerig. Reich tragend und gesund.	images/Talent_Gelb.jpg
+131	Tamara	Rosarote, Wohlschmeckende Früchte, die bis 100 g wiegen können. Historische Sorte aus den USA. Früher und lang anhaltender Ertrag. Robuste Pflanzen.	\N
+132	Tangella	Runde Stabtomate von goldgelber bis orange Farbe. Etwa 30 Gramm. Durchmesser etwa 40 mm. Meist 2 Fruchtkammern. \r \r Sehr schöne Sorte.	images/Tangella.jpg
+133	Tangerine	Mandarinenförmige Sorte von gelber bis orange Farbe. Durchmesser etwa 3 cm. Hochwachsende Stabtomate, oft über 3 m. Gesundes, dunkles Laub. Sehr lange Vegetationsperiode. Robust. Dichte Trauben. Sehr reich tragend.	images/Tangerine.jpg
+134	Thompson Seedling Cream	Cremeweiße, süß, recht Große Cherrytomate. Ertragreich. Diese Sorte bringt kleine Trauben mit 7 bis 10 Früchten hervor. Seltene, wohlschmeckende, mittelhohe Sorte mit runden, etwa 20 Gramm schweren Früchten.	images/Thompson_Seedling_Cream.jpg
+135	Thompson Seedling Green	Gelbgrüne, süß, recht große Cherrytomate. Ertragreich. Diese Sorte bringt kleine Trauben mit 7 bis 10 Früchten hervor. Seltene, wohlschmeckende, mittelhohe Sorte mit runden, etwa 20 Gramm schweren Früchten.	images/Thompson_Seedling_Green.jpg
+136	Tiger Striped	Herrlich geflammte rote Stabtomate, mit intensiv gezeichneten, auffälligen, attraktiven Früchten. Ertragreich, robust und von sehr einheitlicher Sortierung. Runde, saftige, 2 bis 3-kammerige Frucht.  Mittelhoch bis hoch wachsend. Beste Gartensorte. Ursprünglich aus Russland.	images/Tiger_Striped.jpg
+137	Tigarella	Im grünem Stadium stark, später schwächer gestreifte normalrunde, manchmal auch hochrunde rote Stabtomate. Diese Sorte ist in England schon länger bekannt und wegen der saftigen und wohlschmeckenden Früchte sehr beliebt.	images/Tigarella.jpg
+138	Tommy Toe	Australische, früh reifende Stabtomate mit kleineren runden Früchten. Schön und reich tragend. Leicht zu ernten. Früchte wiegen zwischen 25 und 40 g. Geschmacklich zwischen Obst- und normalrunder Tomate. Meist 2, selten 3 Fruchtkammern. Fleischig mit dicken Fruchtwänden. Durchmesser 35-42 mm. Keine typische Obsttomate.	images/Tommy_Toe.jpg
+139	Tondo Liscio	Runde, teils leicht gerippte Stabtomate aus Italien. Für Anbau unter Glas ideal.	images/Tondo_Liscio.jpg
+140	Tonnelet	Gelb-rot gestreifte, länglich-eiförmige Stabtomate mit stumpfer Spitze aus Belgien von ca. 40 g. Mittel bis spät reifend. Wunderschöne, kuriose Frucht, doch etwas braunfäuleanfällig. Daher am besten unter Dach anbauen. S ie können über 2,4 m hoch werden.  Ketschup-Typ.	images/Tonnelet.jpg
+141	Tres Cantos	Fleisch-Stabtomate mit großen, dunkle, plattrunden, gerippten Früchten. Kräftiger Wuchs. Wahrscheinlich aus Spanien.	images/Tres_Cantos.jpg
+143	Tschuchloma	Diese orangefarbene Stabtomate hat lang gestreckt ovale, zeppelinförmige Früchte. Hoch wachsend und früh tragend. Sehr schöne, platzfeste Früchte.  . Tschuchloma ist ein Städtchen an der Wolga.	images/Tschuchloma.jpg
+144	Tim´s Black Ruffled	Stark gerippte, sehr platte Frucht von tiefrot-brauner Farbe. Viele Fruchtkammern. Stabtomate von mittelhohem Wuchs. Eine der dunkelsten Sorten.	images/Tums_Black_Ruffled.jpg
+145	Tumpling Tom Red	- Dieser Sorte ist eine erstklassige Balkontomate. Der buschige, herabhängende Wuchs macht sie zu einer optimalen Tomate für Ampeln und Balkonkästen. Sehr positiv sind auch die frühen und überaus zahlreichen roten Früchte. Die Fruchte sind etwa 1,8 bis 2,2 cm im Durchmesser.	images/Tumpling_Tom_Red.jpg
+146	Tumpling Tom Yellow	- Dieser Sorte ist eine erstklassige Balkontomate. Der buschige, herabhängende Wuchs macht sie zu einer optimalen Tomate für Ampeln und Balkonkästen. Sehr positiv sind auch die frühen und überaus zahlreichen gelben Früchte. Die Fruchte sind etwa 1,8 bis 2,2 cm im Durchmesser.	images/Tumpling_Tom_Yellow.jpg
+147	Tuxhorn´s Red	Kräftige Stabtomate mit bis zu 500g schweren, roten Früchten. Gutes Aroma. Mittelspäte Ernte ab etwa Mitte August aber dafür sehr lecker und guter Ertrag. Wenig krankheitsanfällig.	images/Tuxhorns_Red.jpg
+148	Tuxhorn´s Red and Yellow	Rote bis orangefarbene, geflammte, oft sehr schwere, kartoffelblättrige Stab-Fleischtomate. Sehr alte Sorte und extrem fleischig. Vielkammerig. Das Fruchtfleisch ist gelb-orange marmoriert und enthält wenig Samen. Sie wird hauptsächlich in Salat verwendet.  Hohe Wärmeansprüche, für Hauswand, Tomatenkasten und Gewächshaus! Nur für geschützte Standorte und warme Lagen oder unter Glas.	images/Tuxhorns_Red_Yellow.jpg
+149	Ukrainian Pear	Mittelgroße bis sehr große birn- bis glockenförmige, fleischige Tomate aus der Ukraine. Etwas pinkfarben.	images/Ukrainian_Pear.jpg
+150	Usbekistan IV	Eine Stabtomate mit hervorragendem Geschmack! Die Fruchtfarbe ist eher olivgrün mit braunroten, fleischfarbenen Anteilen. Mittelgroße, meist hochrunde Früchte mit durchschnittlich 140 g und 3 bis 5 Fruchtkammern. Sehr saftreich. Gute Erträge nur in geschützter Lage.	images/Usbekistan_IV.jpg
+151	Verna Orange	Orange Stab-Fleischtomate aus Indiana (USA) mit keil- bis herzförmigen Früchten. Süßsauer und wohlschmeckend.	images/Verna_Orange.jpg
+152	Vinitage Wine	Eine der wenigen Fleischtomate mit geflammten Früchten. Rot mit Gelb. Aus Russland.	images/Vintage_Wine.jpg
+153	Violette Fleischtomate	(Dunkelviolette Fleischtomate, Indische Fleisch) Eine Stabtomate mit hervorragendem Geschmack! Die Fruchtfarbe ist eher olivgrün mit braunroten, fleischfarbenen Anteilen. Mittelgroße, meist hochrunde Früchte mit durchschnittlich 140 g und 3 bis 5 Fruchtkammern. Sehr saftreich. Gute Erträge nur in geschützter Lage. Soll aus Indien stammen.	images/Violette_Fleischtomate.jpg
+154	Wapsipinicon Peach	Eine Stabtomate mit cremeweißen runden Früchten. Diese Sorte gehört zu den Pfirsichtomaten. Die Tomaten sind leicht behaart.	images/Wapsipinicon_Peach.jpg
+155	Weißbehaarte	Sehr schöne, etwas kleinfruchtige, runde Stabtomate bis 2,5 m mit fein behaarten Früchten. Weißgelbe, fast weiße, sehr seltene Fruchtfarbe. Relativ platzfest und gesund wachsend. Früh bis mittelfrüh. An geschützten Stellen oft schon vor Mitte Juli reif. Kuriosität! Saftig und mild-süß.	images/Weissbehaarte.jpg
+156	Weiße Mirabelle	“Mirabell weiß” Viele gelbweiße, ziemlich kleine Früchte bringt diese mittelhohe Stabtomate hervor. Sehr seltene Sorte, die leider erst mittelspät trägt. Die Früchte haben mehrere Fruchtkammern und sehen wie weiße Miniatur-Fleischtomaten, also leicht plattrund aus. Geschmack mild-obstig bis fruchtig. Geschützter Anbau ist wichtig.	images/Weisse_Mirabelle.jpg
+157	Weißes Ochsenherz	Diese Ochsenherztomate ist die einzige mit weißen Früchten. Extrem fleischige und auch große Frucht. Relativ frühe Reife.  Eine Sorte, die aus Belgien stammt.	images/Weisses_Ochsenherz.jpg
+158	Weißleinchen	Kuriose Obsttomate mit üppigen Trauben dicht beieinander sitzender Früchte. Die Farbe der etwa 2 cm großen und runden Früchte ist cremeweiß. Für Spalieranbau geeignet.	\N
+159	White Beauty	(Beaute Blanche du Canada)  Cremegelbe bis weiße Stab-Fleischtomate mit sehr süßem Geschmack. Außergewöhnlich in Farbe und Geschmack. Bringt kräftige und wüchsige Jungpflanzen. Trägt in warmen Sommern und im Gewächshaus sehr gut. Tomaten zerfallen im Salat, da zu wässrig.	images/Weisse_Schoenheit.jpg
+160	White Princess	Eine große, nahezu reinweiße Stabtomate mit großen, teils pfundschweren, fleischigen Früchten. Platt und mittelstark bis schwächer gerippt. Bei uns reiften die ersten Früchte gegen Anfang August. Selbst vollreife Früchte haben nur einen ganz geringen gelben Anflug. Das schmelzende Fruchtfleisch schmeckt süß und sehr saftig.	images/White_Princess.jpg
+161	White Queen	Blassgelbe, platte, leichter gerippte Fleischtomate von 70 bis 200 Gramm Gewicht. Manchmal mit rosa Streifen oder rötlich angehaucht. Mittelhoher Wuchs. Frucht mit vielen Fruchtkammern und oft extrem fleischig sowie mit Nabel.	images/White_Queen.jpg
+162	White Tomesol	Reichtragende weiße Fleischtomate mit saftigen, mittelgroßen, leuchtenden Früchten.	images/White_Tomesol.jpg
+163	Wolford Wonder	Große, herz- bis kreiselförmige oder auch keilförmige Stabtomate mit tief pinkfarbenen Früchten. Unreif mit dunkelgrüner Kappe, die aber bei Reife voll verschwindet. Wenig Platzer. Fleischig, bis 9 cm lang und meist 4 bis 6 cm stark.	images/Wolford_Wonder.jpg
+164	Wooly Typ 1	Eine Stabtomate mitgelborange Früchten von etwa 2 cm Durchmesser. Die Früchte haben am Fruchtansatz eine braunorange Maserung. Sehr lecker und wüchsig.	images/Wooly_Typ_1.jpg
+165	X-Basinga	Ein wahrer Massenträger. Runde Früchte von 45 x 40 mm Größe. Gewicht etwa 35 Gramm. Relativ einheitliche Sortierung. Die Früchte sind grünlichgelb bis ockerfarben und haben auch bei Vollreife eine verwaschene grünliche Kappe. Angenehm und wohlschmeckend, mild-süß und sehr ertragreich. Die Pflanzen machen sehr wenig Arbeit. Wuchshöhe etwa 2 m.	images/x_Basinga.jpg
+166	X-Basinga Oval	Ein wahrer Massenträger. Oval-eiförmige Früchte von 45 x 40 mm Größe. Gewicht etwa 35 Gramm. Relativ einheitliche Sortierung. Die Früchte sind grünlichgelb bis ockerfarben und haben auch bei Vollreife eine verwaschene grünliche Kappe. Angenehm und wohlschmeckend, mild-süß und sehr ertragreich. Die Pflanzen machen sehr wenig Arbeit. Wuchshöhe etwa 2 m.	images/x_Basinga_oval.jpg
+167	Yellow Agate	Wunderschöne, glänzend gelbe Flaschentomate. Diese Sorte wächst nur halbhoch und sehr kompakt mit wuchtigem, dichtem Blattwerk. Etwa fingerlange, 40 bis 50 g schwere, flaschenförmige Früchte mit dicker Fruchtwand. Mild im Geschmack, ohne Säure. Guter Ertrag ab Ende Juli. Platzfest. Interessant für Liebhaber.	images/Yellow_Agate.jpg
+168	Yellow Niunai	Kuriosität! An kompakten, dicht belaubten, etwa 1,6 m hohen Pflanzen hängen dicht gedrängt je Wickel etwa 6 birnengroße und birnenförmige, knallgelbe Früchte. Diese 100 bis 120 g schweren Brocken sind etwa 8 cm lang und bis 6 cm dick. Hängendes, sehr großes Laub.	images/Yellow_Niunai.jpg
+169	Yellow Oxheart	Fast herzförmige, manchmal glockige, nicht einheitlich geformte, gelbe Stabtomate. Vielkammerig. Nicht zu groß, meist etwa 100 g schwer, ein Gewicht von 500 g ist aber drin. Die Früchte enthalten oft nur sehr wenig Samen. Viele kleine Rippen. Rarität!	images/Yellow_Oxheart.jpg
+170	Yellow Pepper	Gelborange bis goldfarbene, große Früchte etwa 80 Gramm, bis 8 cm lang und 5 cm breit von spitzovaler „Andenhorn- Form“, wie Spitzpaprika (oben gleich klobiger, also eher keilförmig). Buschiger Typ mit jeweils 3 bis5 Früchten je Traube. Am Blütenpol mit ausgezogener Spitze.	images/Yellow_Pepper.jpg
+171	Yellow Stuffer	(Golden Cavern, Jaune a Farcir, Gelbe zum Füllen) Paprikaförmige gelbe Stabtomate mit hohlen Früchten. Die Samen sitzen in der Fruchtmitte. Sehr schöne, zum Teil auch große Frucht. Seltenheit. Braucht einen geschützten, trockenen und warmen Platz, um herrliche Früchte zu entwickeln.	images/Yellow_Stuffer.jpg
+172	Yellow-Pink-Fleisch	Bis 400 g schwere, runde, abgeflachte, gelb-orange Früchte mit rotem Zentrum. Sehr aromatisch. Eine der besten zweifarbigen Sorten. Die Sortenbezeichnung bezieht sich auf die Zweifarbigkeit der Früchte, die sehr große, platte Riesenfleischtomaten sind. Am deutlichsten wird die Zwei-Farbigkeit bei aufgeschnittenen Früchten. Das Zentrum ist knall rotorange und zur Fruchtwand hin rein gelb. Sehr viele Fruchtkammern.	\N
+173	Zehen-Reisetomate	Bei dieser roten, meist flachrunden Fleischtomate setzt sich die Frucht aus mehreren Teilfrüchten zusammen, die ohne große Verletzung von der Stammfrucht abgetrennt werden können.	images/Zehen_Reisetomate.jpg
+174	Zscheltyi Delikatess	Goldgelbe, russische Stabtomate mit runden Früchten. Milder Geschmack. Guter Ertrag. Mittlerer Ertragsbeginn. Fruchtgewicht variabel. Ziemlich platzfest.	images/Zscheltyi_Delikatess.jpg
+175	Zhongshu	(Tschongshou) Wunderschöne, brillant pinkfarbene, mittelgroße, würzigsaftige Fleischtomate, sehr selten.	images/Zhongshu.jpg
+176	Zuckertraube	(Zuckertomate)  Süßaromatische kleinfruchtige und kräftig wachsende rote Stab-Obsttomate. Reich tragend mit üppigen, langen Trauben. Etwas empfindlich für Braunfäule, daher geschützt anbauen.	images/Zuckertomate.jpg
+177	Zunami	Eine wunderschöne, großfruchtige Stabtomate. Rund bis plattrund, zwischen 150 bis 200 g schwer und von hervorragender Qualität und ungewöhnlich früher Reife für eine Fleischtomate. Bemerkenswert ist die herrliche, deutlich auffallende Färbung von rosa bis tief rosarot. Mittelhohe Sorte von etwa 2 m Höhe. Runde Früchte, die sich fest anfühlen und schwer in der Hand liegen. Pro Wickel oft ein Ertrag von 1 kg.	images/Zunami.jpg
+178	Zypriotische Riesenfleischtomate	Eine große, rote Fleischtomate aus Zypern. Die Frucht ist keilförmig bis herzförmig, selten auch doppelt herzförmig mit tief liegendem Stielansatz. Gewicht meist 150 bis 200 g. Sie ist so fleischig, dass teilweise nur noch Platz für Mini-Fruchtkammern ist. 6 und mehr Fruchtkammern mit meist wenig Samen. Frucht bis zu 8 cm hoch. Kaum Grünkragen, wenig Platzer.	images/Zypriotische_Riesenfleischtomate.jpg
+10	Ananas Noire	Stabtomate - Große Fleischtomate mit dunkelroten und grünen Farbtönen, die von gelben Streifen durchzogen sind. Innen grünlich mit roter Marmorierung.	
+142	Tschio Tschio San	Eine richtige Überraschung. Diese lang gestreckt ovale bis etwa birnförmige Tomate ist wirklich sehr außergewöhnlich in Farbe und Ertrag. Reif glänzend lachsfarben mit hellerer, gelblich-grüner Kappe. Manchmal zeigen sich auch noch einzelne grüne Flecken und Streifen. Sehr leicht ohne Stiel zu ernten. Massenträger mit Fächerförmigen Trauben. Bis 50 Früchte je Wickel. Fruchtgröße 50 x 33 mm. Gewicht etwa 25 Gramm.	
+\.
+
+
+--
+-- Data for Name: tomatos_tomato_colors; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY tomatos_tomato_colors (id, tomato_id, tomatocolor_id) FROM stdin;
+1	160	3
+2	160	2
+3	82	1
+4	161	3
+5	161	4
+6	83	3
+7	120	5
+8	162	2
+9	84	1
+10	84	7
+11	163	6
+12	85	1
+13	164	3
+14	164	5
+15	164	7
+16	86	1
+17	86	3
+18	121	1
+19	121	3
+20	165	3
+21	165	6
+22	87	1
+23	87	7
+24	88	1
+25	166	3
+26	166	6
+27	167	3
+28	122	1
+29	122	6
+30	122	2
+31	89	5
+32	90	1
+33	168	3
+34	123	3
+35	91	3
+36	169	3
+37	92	1
+38	92	8
+39	170	3
+40	170	5
+41	171	3
+42	172	1
+43	172	3
+44	172	5
+45	93	3
+46	94	1
+47	173	1
+48	95	1
+49	96	1
+50	96	3
+51	96	5
+52	96	4
+53	174	3
+54	97	5
+55	176	1
+56	176	7
+57	98	1
+58	98	7
+59	177	1
+60	177	4
+61	99	1
+62	99	6
+63	100	1
+64	100	7
+65	178	1
+66	178	6
+67	101	3
+68	101	2
+69	103	1
+70	103	6
+71	104	1
+72	104	4
+73	105	3
+74	105	5
+75	106	5
+76	107	3
+77	107	5
+78	108	1
+79	1	1
+80	1	2
+81	110	1
+82	110	3
+83	110	5
+84	2	3
+85	111	5
+86	3	1
+87	3	4
+88	4	3
+89	4	5
+90	112	1
+91	113	3
+92	113	4
+93	113	6
+94	114	1
+95	5	1
+96	6	1
+97	7	5
+98	115	1
+99	119	1
+100	116	3
+101	116	5
+102	117	1
+103	118	3
+104	9	1
+105	9	5
+106	124	1
+107	124	3
+108	124	5
+109	46	3
+110	10	1
+111	10	3
+112	10	6
+113	125	1
+114	125	6
+115	47	1
+116	11	1
+117	126	5
+118	126	6
+119	48	1
+120	48	3
+121	12	3
+122	49	3
+123	127	1
+124	13	3
+125	13	2
+126	13	7
+127	128	1
+128	128	6
+129	128	7
+130	14	5
+131	50	3
+132	129	2
+133	130	3
+134	15	3
+135	15	5
+136	51	1
+137	51	3
+138	16	3
+139	16	5
+140	16	4
+141	16	6
+142	52	3
+143	53	3
+144	131	1
+145	131	4
+146	17	3
+147	17	5
+148	17	4
+149	132	3
+150	132	5
+151	54	3
+152	18	3
+153	133	3
+154	133	5
+155	19	3
+156	19	5
+157	55	3
+158	56	3
+159	134	2
+160	20	1
+161	57	3
+162	21	4
+163	135	3
+164	135	6
+165	136	1
+166	22	1
+167	58	3
+168	137	1
+169	137	6
+170	23	1
+171	59	1
+172	59	4
+173	60	1
+174	60	3
+175	60	5
+176	24	3
+177	25	1
+178	25	4
+179	25	6
+180	61	3
+181	140	1
+182	140	3
+183	140	7
+184	62	1
+185	62	3
+186	62	5
+187	26	5
+188	26	7
+189	63	1
+190	63	7
+191	64	1
+192	64	3
+193	142	3
+194	142	6
+195	28	1
+196	28	4
+197	143	5
+198	29	1
+199	29	3
+200	144	1
+201	144	7
+202	30	1
+203	145	1
+204	66	3
+205	31	3
+206	31	5
+207	67	1
+208	32	1
+209	32	3
+210	146	3
+211	68	3
+212	33	1
+213	33	3
+214	33	4
+215	147	1
+216	148	1
+217	148	3
+218	148	5
+219	69	5
+220	34	1
+221	70	7
+222	35	1
+223	35	7
+224	150	1
+225	150	6
+226	150	7
+227	72	1
+228	72	5
+229	36	1
+230	36	3
+231	36	7
+232	45	1
+233	151	5
+234	73	3
+235	152	1
+236	152	3
+237	38	3
+238	38	6
+239	74	1
+240	153	1
+241	153	6
+242	153	9
+243	153	7
+244	75	1
+245	75	7
+246	39	1
+247	154	2
+248	76	5
+249	40	3
+250	40	5
+251	40	6
+252	155	3
+253	155	2
+254	77	1
+255	77	5
+256	156	3
+257	156	2
+258	78	1
+259	42	1
+260	42	3
+261	42	5
+262	157	2
+263	43	3
+264	43	5
+265	158	2
+266	79	1
+267	44	1
+268	80	5
+269	159	3
+270	159	2
+271	81	1
+\.
+
+
+--
+-- Name: tomatos_tomato_colors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('tomatos_tomato_colors_id_seq', 271, true);
+
+
+--
+-- Name: tomatos_tomato_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('tomatos_tomato_id_seq', 178, true);
+
+
+--
+-- Data for Name: tomatos_tomato_types; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY tomatos_tomato_types (id, tomato_id, tomatotype_id) FROM stdin;
+1	160	1
+2	161	2
+3	83	1
+4	120	1
+5	162	2
+6	84	1
+7	163	1
+8	85	1
+9	164	1
+10	86	1
+11	121	1
+12	87	1
+13	88	8
+14	88	1
+15	167	14
+16	122	1
+17	89	1
+18	90	1
+19	123	14
+20	91	1
+21	169	1
+22	92	1
+23	171	1
+24	172	10
+25	93	1
+26	94	2
+27	173	2
+28	95	2
+29	96	1
+30	174	1
+31	175	2
+32	97	1
+33	176	4
+34	176	20
+35	98	1
+36	177	1
+37	177	2
+38	100	1
+39	178	2
+40	101	1
+41	101	2
+42	102	1
+43	103	1
+44	104	1
+45	105	1
+46	106	1
+47	106	2
+48	107	1
+49	108	1
+50	109	1
+51	1	1
+52	110	1
+53	110	2
+54	2	1
+55	111	1
+56	4	1
+57	4	2
+58	112	1
+59	112	2
+60	113	1
+61	113	2
+62	114	1
+63	5	1
+64	5	2
+65	6	1
+66	6	3
+67	7	1
+68	115	1
+69	119	1
+70	116	1
+71	116	2
+72	8	4
+73	8	1
+74	117	1
+75	117	2
+76	118	1
+77	9	1
+78	9	2
+79	124	1
+80	46	1
+81	46	2
+82	10	1
+83	10	2
+84	125	15
+85	125	8
+86	47	1
+87	11	1
+88	126	4
+89	48	7
+90	48	1
+91	12	1
+92	49	1
+93	49	3
+94	127	1
+95	13	1
+96	128	3
+97	14	1
+98	50	1
+99	129	1
+100	130	1
+101	15	1
+102	15	2
+103	51	8
+104	51	1
+105	16	1
+106	16	2
+107	52	4
+108	52	1
+109	53	4
+110	53	1
+111	17	1
+112	17	2
+113	132	1
+114	54	1
+115	54	9
+116	54	3
+117	18	1
+118	18	3
+119	133	1
+120	19	1
+121	19	2
+122	55	9
+123	55	1
+124	55	3
+125	56	4
+126	56	1
+127	134	16
+128	20	1
+129	20	2
+130	57	1
+131	21	1
+132	21	2
+133	135	16
+134	136	1
+135	22	1
+136	58	10
+137	58	1
+138	137	1
+139	23	1
+140	59	1
+141	60	1
+142	60	2
+143	24	1
+144	138	4
+145	138	1
+146	139	1
+147	25	1
+148	25	2
+149	61	1
+150	61	11
+151	140	1
+152	62	6
+153	141	1
+154	26	5
+155	26	6
+156	63	1
+157	63	12
+158	27	1
+159	64	13
+160	64	1
+161	28	1
+162	143	1
+163	29	1
+164	65	1
+165	65	9
+166	144	1
+167	30	1
+168	145	17
+169	66	1
+170	31	1
+171	31	2
+172	67	1
+173	32	1
+174	32	2
+175	146	17
+176	68	1
+177	33	1
+178	147	1
+179	148	2
+180	69	1
+181	34	1
+182	70	1
+183	35	1
+184	35	2
+185	71	1
+186	150	1
+187	72	1
+188	36	1
+189	45	1
+190	151	2
+191	37	1
+192	73	1
+193	152	2
+194	38	1
+195	38	2
+196	74	1
+197	74	9
+198	153	1
+199	153	2
+200	39	4
+201	39	1
+202	154	1
+203	154	18
+204	76	8
+205	40	1
+206	40	2
+207	155	1
+208	41	1
+209	41	2
+210	77	1
+211	77	2
+212	156	1
+213	156	2
+214	78	1
+215	42	1
+216	157	19
+217	43	1
+218	158	4
+219	79	1
+220	79	2
+221	44	1
+222	80	1
+223	80	2
+224	159	2
+225	81	1
+\.
+
+
+--
+-- Name: tomatos_tomato_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('tomatos_tomato_types_id_seq', 225, true);
+
+
+--
+-- Data for Name: tomatos_tomatocolor; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY tomatos_tomatocolor (id, name) FROM stdin;
+1	rot
+2	weiß
+3	gelb
+4	rosa
+5	orange
+6	grün
+7	braun
+8	lila
+9	violett
+\.
+
+
+--
+-- Name: tomatos_tomatocolor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('tomatos_tomatocolor_id_seq', 9, true);
+
+
+--
+-- Data for Name: tomatos_tomatotype; Type: TABLE DATA; Schema: public; Owner: django
+--
+
+COPY tomatos_tomatotype (id, name) FROM stdin;
+1	Stabtomate
+2	Fleischtomate
+3	Wildtomate
+4	Obsttomate
+5	Ampeltomate
+6	Buschtomate
+7	Kirschtomate
+8	Paprikatomate
+9	Spaliertomate
+10	Riesenfleischtomate
+11	Cocktailtomate
+12	Ketschuptomate
+13	Kirschstabtomate
+14	Flaschentomate
+15	Fülltomate
+16	Cherrytomate
+17	Balkontomate
+18	Pfirsichtomate
+19	Ochsenherztomate
+20	Zuckertomate
+\.
+
+
+--
+-- Name: tomatos_tomatotype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: django
+--
+
+SELECT pg_catalog.setval('tomatos_tomatotype_id_seq', 20, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: tomatos_tomato_colors tomatos_tomato_colors_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_colors
+    ADD CONSTRAINT tomatos_tomato_colors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tomatos_tomato tomatos_tomato_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato
+    ADD CONSTRAINT tomatos_tomato_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tomatos_tomato_types tomatos_tomato_types_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_types
+    ADD CONSTRAINT tomatos_tomato_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tomatos_tomatocolor tomatos_tomatocolor_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomatocolor
+    ADD CONSTRAINT tomatos_tomatocolor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tomatos_tomatotype tomatos_tomatotype_pkey; Type: CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomatotype
+    ADD CONSTRAINT tomatos_tomatotype_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: django
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: tomatos_tomato_colors tomatos_tomato_colors_tomato_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_colors
+    ADD CONSTRAINT tomatos_tomato_colors_tomato_id_fkey FOREIGN KEY (tomato_id) REFERENCES tomatos_tomato(id);
+
+
+--
+-- Name: tomatos_tomato_colors tomatos_tomato_colors_tomatocolor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_colors
+    ADD CONSTRAINT tomatos_tomato_colors_tomatocolor_id_fkey FOREIGN KEY (tomatocolor_id) REFERENCES tomatos_tomatocolor(id);
+
+
+--
+-- Name: tomatos_tomato_types tomatos_tomato_types_tomato_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_types
+    ADD CONSTRAINT tomatos_tomato_types_tomato_id_fkey FOREIGN KEY (tomato_id) REFERENCES tomatos_tomato(id);
+
+
+--
+-- Name: tomatos_tomato_types tomatos_tomato_types_tomatotype_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: django
+--
+
+ALTER TABLE ONLY tomatos_tomato_types
+    ADD CONSTRAINT tomatos_tomato_types_tomatotype_id_fkey FOREIGN KEY (tomatotype_id) REFERENCES tomatos_tomatotype(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
