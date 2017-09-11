@@ -1,0 +1,9 @@
+{% if tomatos_list %}
+	<ul>
+		{% for tomato in tomatos_list %}
+			<li><a href="/tomatos/{{ tomato.id }}"/>{{ tomato.name }}</li>
+		{% endfor %}
+	</ul>
+{% else%}
+	<p>Sorry, no tomatos available.</p>
+{% endif %}

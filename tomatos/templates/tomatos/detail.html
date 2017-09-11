@@ -1,0 +1,29 @@
+<h1>{{ tomato.name }}</h1>
+
+{% if tomato.image %}
+	{% load static %}
+	<img src="{% get_media_prefix %}{{ tomato.image }}"/>
+{% endif %}
+
+{% if tomato.description %}
+	<h2>Beschreibung</h2>
+	<p>{{ tomato.description }}</p>
+{% endif %}
+
+{% if tomato.types %}
+	<h2>Typen</h2>
+	<ul>
+		{% for type in tomato.types.all %}
+				<li>{{ type.name }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+
+{% if tomato.colors %}
+	<h2>Farben</h2>
+	<ul>
+		{% for color in tomato.colors.all %}
+				<li>{{ color.name }}</li>
+		{% endfor %}
+	</ul>
+{% endif %}
