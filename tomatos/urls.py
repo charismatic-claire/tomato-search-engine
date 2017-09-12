@@ -13,4 +13,7 @@ urlpatterns = [
     ## detail page of one specific tomato
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     
+    ## tomatos by type
+    url(r'^type/([\w-]+)/$', views.TypeView.as_view(), name='type'),
+    
 ]

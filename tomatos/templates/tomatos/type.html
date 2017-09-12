@@ -1,0 +1,10 @@
+{% if tomatos_by_type %}
+	<h1>Liste aller {{ tomatos_by_type|length }} {{ tomato_type.name }}n</h1>
+	<ul>
+		{% for tomato in tomatos_by_type %}
+			<li><a href="/tomatos/{{ tomato.id }}"/>{{ tomato.name }}</li>
+		{% endfor %}
+	</ul>
+{% else%}
+	<p>Ohoh, diese Tomaten gibt es nicht.</p>
+{% endif %}
