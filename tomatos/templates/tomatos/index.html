@@ -2,15 +2,17 @@
 
 <!------------ CONTENT HEADING ------------>
 {% block content_head %}
-	
+	<div class="col-sm-12 tomato-list-heading">
+		<h5>Deine Suche ergab {{ tomato_context.tomato_list|length }} Treffer</h5>
+	</div>	
 {% endblock %}
 
 <!-------------- CONTENT BODY ------------->
 {% block content_body %}
 	<div id="content-middle" class="col-sm-12">
-		{% if tomatos_list %}
+		{% if tomato_context.tomato_list %}
 			<ul class="tomato-list">
-				{% for tomato in tomatos_list %}
+				{% for tomato in tomato_context.tomato_list %}
 					<li class="tomato-list-item">
 						<h4><a href="{% url 'tomatos:index' %}{{ tomato.id }}">{{ tomato.name }}</a></h4>
 						<p>{{ tomato.description|truncatewords:20 }}

@@ -1,35 +1,41 @@
+/* ---------- GENERAL SETTINGS ---------- */
+
 a:hover {
 	text-decoration: none;
 }
+#content {
+	margin-top: 40px;
+}
+
+
+/* --------------- NAVBAR --------------- */
 
 #navbar {
 	width: 100%;
 	position: sticky;
 	top: 0;
 	z-index: 1071;
+	margin-bottom: 10px;
 }
-
 #navbar .main-search-form {
 	width: 75%;
 }
-
 #navbar .main-search-input {
-	width: 75%;
+	width: 80%;
 }
 
-#content {
-	margin-top: 40px;
-}
 
+/* ----------TOMATO RESULTS LIST -------- */
+#content-head div.tomato-list-heading {
+	margin-left: 40px;
+}
 #content-middle ul.tomato-list {
 	list-style: none;
 }
-
 #content-middle ul.tomato-list > li.tomato-list-item {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
-
 #content-middle ul.tomato-list > li.tomato-list-item:before {
 	content: '';
 	display: inline-block;
@@ -39,17 +45,22 @@ a:hover {
 	margin-left: -45px;
 	margin-bottom: -32px;
 }
-
 #content-middle ul.tomato-list > li.tomato-list-item  a:hover {
 	text-decoration: none;
 }
 
-#content-footer {
+
+/* --------------- FOOTER --------------- */
+
+#footer {
 	margin-top: 40px;
 }
-#content-footer > div {
+#footer > div {
 	text-align: center;
 	padding-top: 20px;
 	padding-bottom: 50px;
 	box-shadow: 0px 500px 0px 500px #F8F9FA;
+}
+#footer p {
+	font-size: 14px;
 }

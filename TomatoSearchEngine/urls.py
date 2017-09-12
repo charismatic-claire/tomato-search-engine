@@ -20,5 +20,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url( r'^tomatos/', include( 'tomatos.urls' ) ),
+    url( r'^', include( 'tomatos.urls' ) ),
 ]  + static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT )    # to add support for media uploads
