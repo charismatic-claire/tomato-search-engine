@@ -1,3 +1,55 @@
 a:hover {
 	text-decoration: none;
 }
+
+#navbar {
+	width: 100%;
+	position: sticky;
+	top: 0;
+	z-index: 1071;
+}
+
+#navbar .main-search-form {
+	width: 75%;
+}
+
+#navbar .main-search-input {
+	width: 75%;
+}
+
+#content {
+	margin-top: 40px;
+}
+
+#content-middle ul.tomato-list {
+	list-style: none;
+}
+
+#content-middle ul.tomato-list > li.tomato-list-item {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#content-middle ul.tomato-list > li.tomato-list-item:before {
+	content: '';
+	display: inline-block;
+	height: 30px;
+	width: 30px;
+	background-image: url('icons/tomato.png');
+	margin-left: -45px;
+	margin-bottom: -32px;
+}
+
+#content-middle ul.tomato-list > li.tomato-list-item  a:hover {
+	text-decoration: none;
+}
+
+#content-footer {
+	margin-top: 40px;
+}
+#content-footer > div {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 50px;
+	box-shadow: 0px 500px 0px 500px #F8F9FA;
+}

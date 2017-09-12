@@ -1,14 +1,24 @@
 {% extends "tomatos/base.html" %}
 
-{% block content %}
-{% if tomatos_list %}
-	<h1>Liste aller {{ tomatos_list|length }} Tomatensorten</h1>
-	<ul>
-		{% for tomato in tomatos_list %}
-			<li><a href="/tomatos/{{ tomato.id }}">{{ tomato.name }}</a></li>
-		{% endfor %}
-	</ul>
-{% else%}
-	<p>Sorry, no tomatos available.</p>
-{% endif %}
+<!------------ CONTENT HEADING ------------>
+{% block content_head %}
+	
+{% endblock %}
+
+<!-------------- CONTENT BODY ------------->
+{% block content_body %}
+	<div id="content-middle" class="col-sm-12">
+		{% if tomatos_list %}
+			<ul class="tomato-list">
+				{% for tomato in tomatos_list %}
+					<li class="tomato-list-item">
+						<h4><a href="{% url 'tomatos:index' %}{{ tomato.id }}">{{ tomato.name }}</a></h4>
+						<p>{{ tomato.description|truncatewords:20 }}
+					</li>
+				{% endfor %}
+			</ul>
+		{% else%}
+			<p>Sorry, no tomatos available.</p>
+		{% endif %}
+	</div>
 {% endblock %}
