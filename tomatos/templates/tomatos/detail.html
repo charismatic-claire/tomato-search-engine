@@ -1,29 +1,37 @@
+{% extends "tomatos/base.html" %}
+
+{% block content %}
 <h1>{{ tomato.name }}</h1>
 
-{% if tomato.image %}
-	{% load static %}
-	<img src="{% get_media_prefix %}{{ tomato.image }}"/>
-{% endif %}
+<div id="content-left" class="col-sm-6">
+	{% if tomato.image %}
+		{% load static %}
+		<img src="{% get_media_prefix %}{{ tomato.image }}"/>
+	{% endif %}
+</div>
 
-{% if tomato.description %}
-	<h2>Beschreibung</h2>
-	<p>{{ tomato.description }}</p>
-{% endif %}
+<div id="content-right" class="col-sm-6">
+	{% if tomato.description %}
+		<h2>Beschreibung</h2>
+		<p>{{ tomato.description }}</p>
+	{% endif %}
 
-{% if tomato.types.all|length > 0 %}
-	<h2>Typen</h2>
-	<ul>
-		{% for type in tomato.types.all %}
+	{% if tomato.types.all|length > 0 %}
+		<h2>Typen</h2>
+		<ul>
+			{% for type in tomato.types.all %}
 				<li>{{ type.name }}</li>
-		{% endfor %}
-	</ul>
-{% endif %}
+			{% endfor %}
+		</ul>
+	{% endif %}
 
-{% if tomato.colors.all|length > 0 %}
-	<h2>Farben</h2>
-	<ul>
-		{% for color in tomato.colors.all %}
+	{% if tomato.colors.all|length > 0 %}
+		<h2>Farben</h2>
+		<ul>
+			{% for color in tomato.colors.all %}
 				<li>{{ color.name }}</li>
-		{% endfor %}
-	</ul>
-{% endif %}
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>	
+{% endblock %}
