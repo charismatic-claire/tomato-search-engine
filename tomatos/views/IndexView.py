@@ -25,9 +25,12 @@ class IndexView( generic.ListView ):
     
     ## generate 'tomatos_list'
     def get_queryset( self ):
+        ## init
         tomato_context = {}
+        ## add lists
         tomato_context['tomato_list'] = self.get_tomato_list()
         tomato_context['tomatocolor_list'] = self.get_tomatocolor_list()
         tomato_context['tomatotype_list'] = self.get_tomatotype_list()
+        ## return
         return tomato_context
     

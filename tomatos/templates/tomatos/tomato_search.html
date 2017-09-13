@@ -1,0 +1,35 @@
+{% extends "tomatos/base.html" %}
+
+{% block content_body %}
+	<div class="col-sm-6">
+		<form action="" method="get">
+			{{ form.as_p }}
+			<input type="submit" value="Submit" />
+		</form>
+	</div>
+	
+	<div class="col-sm-6">
+		{% if search_query %}
+			<p>Die Sucheingabe: {{ search_query }}</p>
+		{% endif %}
+		{% if tomato_color %}
+			<p>Farbe: {{ tomato_color.name }}</p>
+		{% endif %}
+		{% if tomato_type %}
+			<p>Type: {{ tomato_type.name }}</p>
+		{% endif %}
+	</div>
+	
+	<div class="col-sm-12">
+		{% if tomato_list %}
+			<p></p>
+			<h5>Deine Suche ergab {{ tomato_list|length }} Treffer</h5> 
+			<ul>
+				{% for tomato in tomato_list %}
+					<li><a href="{% url 'tomatos:detail' pk=tomato.id %}">{{ tomato.name }}</a></li>
+				{% endfor%}		
+			</ul>			
+		{% endif %}
+	</div>
+	
+{% endblock %}

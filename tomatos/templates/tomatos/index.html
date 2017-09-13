@@ -14,7 +14,7 @@
 			<ul class="tomato-list">
 				{% for tomato in tomato_context.tomato_list %}
 					<li class="tomato-list-item">
-						<h4><a href="{% url 'tomatos:index' %}{{ tomato.id }}">{{ tomato.name }}</a></h4>
+						<h4><a href="{% url 'tomatos:detail' pk=tomato.id %}">{{ tomato.name }}</a></h4>
 						<p>{{ tomato.description|truncatewords:20 }}
 					</li>
 				{% endfor %}

@@ -11,9 +11,12 @@ urlpatterns = [
     url( r'^$', views.IndexView.as_view() , name='index' ),
     
     ## detail page of one specific tomato
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    url( r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail' ),
     
     ## tomatos by type
-    url(r'^type/([\w-]+)/$', views.TypeView.as_view(), name='type'),
+    url( r'^type/([\w-]+)/$', views.TypeView.as_view(), name='type' ),
+    
+    ## tomato form
+    url( r'^tomato-search/$', views.TomatoSearchView.as_view(), name='tomato_search' ),
     
 ]
