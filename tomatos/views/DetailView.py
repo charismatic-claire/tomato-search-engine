@@ -1,10 +1,16 @@
-from django.views import generic
 from tomatos.models.Tomato import Tomato
+from django.views.generic.detail import DetailView
+from tomatos.views.BaseView import BaseView
 
-class DetailView( generic.DetailView ):
+class DetailView( DetailView, BaseView ):
+    """
+    View to show details of one specific tomato. By the way:
+    Wow, a class can be a subclass of multiple superclasses.
+    """
     
-    ## template to use
+    ## Template to use
     template_name = 'tomatos/detail.html'
 
-    ## model object to use
+    ## Objects from which maodel to fetch
     model = Tomato
+    

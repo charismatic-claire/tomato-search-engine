@@ -1,3 +1,5 @@
+{% load tomato_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +17,7 @@
 </head>
 
 <body>
-	<form id="navigation-wrapper">
+	<form action="/" method="get" id="navigation-wrapper">
 		<!----------- TOP BAR WITH NAVIGATION ----------->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark bd-navbar" id="navbar">
 			
@@ -30,22 +32,22 @@
 	  			<!-- MENU ITEMS -->
 	  			<ul class="navbar-nav mr-auto">
 	  				<li class="nav-item">
-	  					<a class="nav-link" data-toggle="collapse" href="#colorSearchForm" aria-expanded="false"
-	  					 aria-controls="colorSearchForm">Farben</a>
+	  					<a class="nav-link" data-toggle="collapse" data-parent="#navbarExpand" href="#colorSearchForm"
+	  						aria-expanded="false" aria-controls="colorSearchForm">Farben</a>
 	  				</li>
 	  				<li class="nav-item">
-	  					<a class="nav-link" data-toggle="collapse" href="#typeSearchForm" aria-expanded="false"
-	  					 aria-controls="typeSearchForm">Typen</a>
+	  					<a class="nav-link" data-toggle="collapse" data-parent="#navbarExpand" href="#typeSearchForm"
+	  						aria-expanded="false" aria-controls="typeSearchForm">Typen</a>
 	  				</li>
 	  				<li class="nav-item">
-	  					<a class="nav-link" data-toggle="collapse" href="#helpCard" aria-expanded="false"
-	  					 aria-controls="helpCard">Hilfe</a>
+	  					<a class="nav-link" data-toggle="collapse" data-parent="#navbarExpand" href="#helpCard"
+	  						aria-expanded="false" aria-controls="helpCard">Hilfe</a>
 	  				</li>
 	  			</ul>
 	  			
 	  			<!-- SEARCH BAR-->
 	  			<div class="form-inline my-2 my-lg-0 main-search-form">
-   					<input class="form-control mr-sm-2 main-search-input" type="text" placeholder="Titel und/oder Beschreibung" aria-label="Search">
+   					{{ form.search_query|addcss:"form-control mr-sm-2 main-search-input" }}
    					<button class="btn btn-outline-secondary my-2 my-sm-0 main-search-button" type="submit">Suchen</button>
 				</div>
 	    	</div>
@@ -53,26 +55,22 @@
 		</nav>
 		
 		<!--------------- EXPANDING AREA ---------------->
-		<div class="container" id="navbar-expand">
+		<div class="container" id="navbarExpand" data-children=".expandable">
 		
 			<!------------- COLORS SELECTION ------------>
 			<div class="row" >
-				<div class="col-sm-12 collapse" id="colorSearchForm">
+				<div class="col-sm-12 collapse expandable" id="colorSearchForm">
 					<div class="card card-body">
 						{% block color_selection %}
-							<h3>Bitte Tomatenfarben auswählen</h3>
-							{% if tomato_context.tomatocolor_list %}
-								{% for tomatocolor in tomato_context.tomatocolor_list %}
-									<div class="form-check">
-										<label class="form-check-label">
-											<input class="form-check-input" type="checkbox" value="{{ tomatocolor.id }}">
-											<span>{{ tomatocolor.name }} ({{ tomatocolor.get_number_of_tomatos }})</span>
-										</label>
-									</div>
-								{% endfor %}	
+							<p><strong>Bitte Tomatenfarben auswählen</strong></p>
+							<p>Wird mehr als eine Farbe ausgewählt, erscheinen all jene Tomatenpflanzen mit 
+								mindestens einer dieser Farben.<br />
+								Wird keine Farbe ausgewählt, findet schlicht keine Farbauswahl statt.</p>
+							{% if form.tomato_colors %}
+								{{ form.tomato_colors }}
 							{% else %}
 								<p>Sorry, hier gibt es nichts auszuwählen.</p>
-							{% endif %}	
+							{% endif %}
 	    				{% endblock %}
 	    			</div>
 	    		</div>
@@ -80,22 +78,19 @@
 	    	
 	    	<!-------------- TYPE SELECTION ------------->
 	    	<div class="row">
-	    		<div class="collapse col-sm-12" id="typeSearchForm">
+	    		<div class="collapse col-sm-12 expandable" id="typeSearchForm">
 	    			<div class="card card-body">
 	    				{% block type_selection %}
-							<h3>Bitte Tomatenpflanzentypen auswählen</h3>
-							{% if tomato_context.tomatotype_list %}
-								{% for tomatotype in tomato_context.tomatotype_list %}
-									<div class="form-check">
-										<label class="form-check-label">
-											<input class="form-check-input" type="checkbox" value="{{ tomatotype.id }}">
-											<span>{{ tomatotype.name }} ({{ tomatotype.get_number_of_tomatos }})</span>
-										</label>
-									</div>
-								{% endfor %}
+							<p><strong>Bitte Tomatenpflanzentypen auswählen</strong></p>
+							<p>Wird mehr als ein Pflanzentyp ausgewählt, erscheinen all jene Tomatenpflanzen mit 
+								mindestens einem dieser Typen.<br />
+								Wird gar kein Typ ausgewählt, findet schlicht keine Typauswahl statt.</p>
+							
+							{% if form.tomato_types %}
+								{{ form.tomato_types }}
 							{% else %}
-								<p>Sorry, hier gibt es nichts auszuwählen.</p>		
-							{% endif %}
+								<p>Sorry, hier gibt es nichts auszuwählen.</p>
+							{% endif %}							
 	    				{% endblock %}
 	    			</div>
 	    		</div>
@@ -103,10 +98,19 @@
 	    	
 	    	<!---------------- HELP CARD ---------------->
 	    	<div class="row">
-	    		<div class="collapse col-sm-12" id="helpCard">
+	    		<div class="collapse col-sm-12 expandable" id="helpCard">
 	    			<div class="card card-body">
-	    				<h3>Bedienhilfe</h3>
-	    				<p>Wie funktioniert dies Web Application eigentlich?</p>
+	    				<p><strong>Bedienhilfe</strong></p>
+	    				<p>
+	    					Suche nach Tomatenpflanzen mittels Stichworten, die in die Suchzeile eingetragen werden.
+	    					Optional kann die Suche nach Farben, die als Stichwort in der Beschreibung oder dem Titel
+	    					der Tomatenpflanze vorkommen, eingeschränkt werden. Ebenso funktioniert es mit Pflanzentypen.
+	    					Verwende dafür die jeweiligen Auswahlmenüs unter "Farben" und "Typen".
+ 	    				</p>
+ 	    				<p>
+ 	    					Die ursprünglichen Daten wurden automatisch aus der <a href="http://www.birgit-kempe-tomaten.de/"
+ 	    					target="_blank"> Website von Birgit Kempe</a> extrahiert und in die eigene Datenbank importiert.
+ 	    				</p>
 	    			</div>
 	    		</div>
 	    	</div>
