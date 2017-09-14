@@ -49,6 +49,9 @@ a:hover {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+#content-middle ul.tomato-list > li.tomato-list-item:first-child {
+	margin-top: 0;
+}
 #content-middle ul.tomato-list > li.tomato-list-item:before {
 	content: '';
 	display: inline-block;
@@ -62,6 +65,14 @@ a:hover {
 	text-decoration: none;
 }
 
+/*---------- TOMATO DETAILS VIEW -------- */
+#content-head {
+	margin-bottom: 20px;
+}
+#content-left ul.categories-list {
+	list-style: none;
+	padding-left: 0;
+}
 
 /* --------------- FOOTER --------------- */
 

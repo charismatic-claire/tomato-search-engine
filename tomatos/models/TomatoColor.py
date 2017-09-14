@@ -8,7 +8,6 @@ class TomatoColor( models.Model ):
     ## name of the color
     name = models.CharField( max_length=200 )
     
-    
     def get_number_of_tomatos( self ):
         """
         How many tomatos do have this color?

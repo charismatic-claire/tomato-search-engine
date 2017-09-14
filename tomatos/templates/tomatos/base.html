@@ -58,8 +58,8 @@
 		<div class="container" id="navbarExpand" data-children=".expandable">
 		
 			<!------------- COLORS SELECTION ------------>
-			<div class="row" >
-				<div class="col-sm-12 collapse expandable" id="colorSearchForm">
+			<div class="row justify-content-center" >
+				<div class="col-sm-10 collapse expandable" id="colorSearchForm">
 					<div class="card card-body">
 						{% block color_selection %}
 							<p><strong>Bitte Tomatenfarben auswählen</strong></p>
@@ -77,8 +77,8 @@
 	    	</div>
 	    	
 	    	<!-------------- TYPE SELECTION ------------->
-	    	<div class="row">
-	    		<div class="collapse col-sm-12 expandable" id="typeSearchForm">
+	    	<div class="row justify-content-center">
+	    		<div class="collapse col-sm-10 expandable" id="typeSearchForm">
 	    			<div class="card card-body">
 	    				{% block type_selection %}
 							<p><strong>Bitte Tomatenpflanzentypen auswählen</strong></p>
@@ -97,8 +97,8 @@
 	    	</div>
 	    	
 	    	<!---------------- HELP CARD ---------------->
-	    	<div class="row">
-	    		<div class="collapse col-sm-12 expandable" id="helpCard">
+	    	<div class="row justify-content-center">
+	    		<div class="collapse col-sm-10 expandable" id="helpCard">
 	    			<div class="card card-body">
 	    				<p><strong>Bedienhilfe</strong></p>
 	    				<p>
@@ -121,12 +121,12 @@
 			
 	<div class="container" id="content">
 		<!------------- CONTENT HEADING ------------->
-			<div class="row" id="content-head">
+			<div class="row justify-content-center" id="content-head">
 				{% block content_head %}{% endblock %}
 			</div>
 		
 		<!--------------- CONTENT BODY -------------->
-			<div class="row" id="content-body">
+			<div class="row justify-content-center" id="content-body">
         		{% block content_body %}{% endblock %}
     		</div>
     </div>

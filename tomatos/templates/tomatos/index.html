@@ -2,14 +2,14 @@
 
 <!------------ CONTENT HEADING ------------>
 {% block content_head %}
-	<div class="col-sm-12 tomato-list-heading">
+	<div class="col-sm-10 tomato-list-heading">
 		<h5>Deine Suche ergab {{ tomato_list|length }} Treffer</h5>
 	</div>	
 {% endblock %}
 
 <!-------------- CONTENT BODY ------------->
 {% block content_body %}
-	<div id="content-middle" class="col-sm-12">
+	<div id="content-middle" class="col-sm-10">
 		{% if tomato_list %}
 			<ul class="tomato-list">
 				{% for tomato in tomato_list %}

@@ -64,7 +64,7 @@ class BaseView( FormView ):
         search_query = self.get_search_query()
         tomato_colors = self.get_tomato_colors()
         tomato_types = self.get_tomato_types()
-        tomato_list = Tomato.objects.order_by('name')
+        tomato_list = Tomato.objects.order_by( 'name' )
         ## apply filters
         if search_query:
             tomato_list = tomato_list.filter( Q(description__icontains = search_query) | Q(name__icontains = search_query) )
@@ -72,8 +72,10 @@ class BaseView( FormView ):
             tomato_list = tomato_list.filter( colors__in = tomato_colors )
         if tomato_types:
             tomato_list = tomato_list.filter( types__in = tomato_types )
+        ## remove duplicates, sort alphabetically
+        tomato_list = tomato_list.distinct().order_by( 'name' )
         ## return result
-        return list( set( tomato_list ) )        
+        return tomato_list   
     
     def get_context_data( self, **kwargs):
         """
