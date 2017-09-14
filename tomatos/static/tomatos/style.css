@@ -18,12 +18,12 @@ a:hover {
 	width: 100%;
 	margin-bottom: 10px;
 }
-@media (max-width: 991px) {
+@media(max-width: 991px) {
 	#navbar .main-search-form {
 		width: 100%;
 	}
 }
-@media (min-width: 992px) {
+@media(min-width: 992px) {
 	#navbar .main-search-form {
 		width: 75%;
 	}	
@@ -32,10 +32,16 @@ a:hover {
 #navbar .main-search-input {
 	width: 80%;
 }
-#colorSearchForm ul#id_tomato_colors,
-#typeSearchForm ul#id_tomato_types {
+#navbarExpand .expandable ul.category-list {
 	list-style: none;
 	padding-left: 0;
+}
+@media(min-width: 768px) {
+	#navbarExpand .expandable ul.category-list li {
+		float: left;
+		display: block;
+		width: 50%;
+	}
 }
 
 /* ----------TOMATO RESULTS LIST -------- */

@@ -67,7 +67,7 @@
 								mindestens einer dieser Farben.<br />
 								Wird keine Farbe ausgewählt, findet schlicht keine Farbauswahl statt.</p>
 							{% if form.tomato_colors %}
-								{{ form.tomato_colors }}
+								{{ form.tomato_colors|addcss:"category-list" }}
 							{% else %}
 								<p>Sorry, hier gibt es nichts auszuwählen.</p>
 							{% endif %}
@@ -87,7 +87,7 @@
 								Wird gar kein Typ ausgewählt, findet schlicht keine Typauswahl statt.</p>
 							
 							{% if form.tomato_types %}
-								{{ form.tomato_types }}
+								{{ form.tomato_types|addcss:"category-list" }}
 							{% else %}
 								<p>Sorry, hier gibt es nichts auszuwählen.</p>
 							{% endif %}							
@@ -109,7 +109,7 @@
  	    				</p>
  	    				<p>
  	    					Die ursprünglichen Daten wurden automatisch aus der <a href="http://www.birgit-kempe-tomaten.de/"
- 	    					target="_blank"> Website von Birgit Kempe</a> extrahiert und in die eigene Datenbank importiert.
+ 	    					target="_blank">Website von Birgit Kempe</a> extrahiert und in die eigene Datenbank importiert.
  	    				</p>
 	    			</div>
 	    		</div>
