@@ -1,4 +1,5 @@
 {% extends "tomatos/base.html" %}
+{% load tomato_filters %}
 
 {% block content_body %}
 
@@ -9,7 +10,7 @@
 			<div class="fieldWrapper">
 				<h4>{{ form.search_query.label }}</h4>
 				{{ form.search_query.errors }}
-				{{ form.search_query }}
+				{{ form.search_query|addcss:"form-control mr-sm-2" }}
 			</div>
 			<div class="fieldWrapper">
 				<h4>{{ form.tomato_colors.label }}</h4>
