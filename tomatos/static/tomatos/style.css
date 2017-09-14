@@ -10,11 +10,13 @@ a:hover {
 
 /* --------------- NAVBAR --------------- */
 
-#navbar {
-	width: 100%;
+#navigation-wrapper {
 	position: sticky;
 	top: 0;
-	z-index: 1071;
+	z-index: 1071;	
+}
+#navbar {
+	width: 100%;
 	margin-bottom: 10px;
 }
 #navbar .main-search-form {
@@ -23,7 +25,6 @@ a:hover {
 #navbar .main-search-input {
 	width: 80%;
 }
-
 
 /* ----------TOMATO RESULTS LIST -------- */
 #content-head div.tomato-list-heading {

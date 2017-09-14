@@ -1,26 +1,32 @@
 {% extends "tomatos/base.html" %}
 
 {% block content_body %}
+
+	<!--------------------- QUERY INPUT --------------------->
 	<div class="col-sm-6">
+		<h2>Eingabe</h2>
 		<form action="" method="get">
-			{{ form.as_p }}
+			<div class="fieldWrapper">
+				<h4>{{ form.search_query.label }}</h4>
+				{{ form.search_query.errors }}
+				{{ form.search_query }}
+			</div>
+			<div class="fieldWrapper">
+				<h4>{{ form.tomato_colors.label }}</h4>
+				{{ form.tomato_colors.errors }}
+				{{ form.tomato_colors }}
+			</div>
+			<div class="fieldWrapper">
+				<h4>{{ form.tomato_types.label }}</h4>
+				{{ form.tomato_types.errors }}
+				{{ form.tomato_types }}				
+			</div>			
 			<input type="submit" value="Submit" />
 		</form>
 	</div>
-	
+
+	<!-------------------- QUERY OUTPUT --------------------->
 	<div class="col-sm-6">
-		{% if search_query %}
-			<p>Die Sucheingabe: {{ search_query }}</p>
-		{% endif %}
-		{% if tomato_color %}
-			<p>Farbe: {{ tomato_color.name }}</p>
-		{% endif %}
-		{% if tomato_type %}
-			<p>Type: {{ tomato_type.name }}</p>
-		{% endif %}
-	</div>
-	
-	<div class="col-sm-12">
 		{% if tomato_list %}
 			<p></p>
 			<h5>Deine Suche ergab {{ tomato_list|length }} Treffer</h5> 
@@ -30,6 +36,30 @@
 				{% endfor%}		
 			</ul>			
 		{% endif %}
+	</div>	
+	<div class="col-sm-12">
+		<h2>Ausgabe</h2>
+		{% if search_query %}
+			<h4>Sucheingabe</h4>
+			<p>{{ search_query }}</p>
+		{% endif %}
+		{% if tomato_colors %}
+			<h4>Farben</h4>
+			<ul>
+				{% for tomato_color in tomato_colors %}
+					<li>{{ tomato_color }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		{% if tomato_types %}
+			<h4>Typen</h4>
+			<ul>
+				{% for tomato_type in tomato_types %}
+					<li>{{ tomato_type }}</li>
+				{% endfor %}
+			</ul>
+
+		{% endif %}
 	</div>
-	
+		
 {% endblock %}
