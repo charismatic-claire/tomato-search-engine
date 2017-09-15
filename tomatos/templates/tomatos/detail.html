@@ -1,25 +1,25 @@
 {% extends "tomatos/base.html" %}
 
-<!------------ CONTENT HEADING ------------>
+<!-- ********** CONTENT HEADING ********** -->
 {% block content_head %}
 	<div class="col-sm-10">
 		<h1>{{ tomato.name }}</h1>
 	</div>	
 {% endblock %}
 
-<!-------------- CONTENT BODY ------------->
+<!-- ************ CONTENT BODY *********** -->
 {% block content_body %}
 
 	<!-- CONTENT LEFT -->
 	<div id="content-left" class="col-sm-5">
 
 		{% if tomato.description %}
-			<h3>Beschreibung</h2>
+			<h3>Beschreibung</h3>
 			<p>{{ tomato.description }}</p>
 		{% endif %}
 	
 		{% if tomato.types.all|length > 0 %}
-			<h3>Typen</h2>
+			<h3>Typen</h3>
 			<ul class="categories-list">
 				{% for type in tomato.types.all %}
 					<li>{{ type.name }}</li>
@@ -28,7 +28,7 @@
 		{% endif %}
 	
 		{% if tomato.colors.all|length > 0 %}
-			<h3>Farben</h2>
+			<h3>Farben</h3>
 			<ul class="categories-list">
 				{% for color in tomato.colors.all %}
 					<li>{{ color.name }}</li>
