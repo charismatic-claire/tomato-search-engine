@@ -11,10 +11,6 @@ a:hover {
 /* --------------- NAVBAR --------------- */
 
 #navbar {
-	position: sticky;
-	top: 0;
-	z-index: 1071;	
-	
 	width: 100%;
 	margin-bottom: 10px;
 }
