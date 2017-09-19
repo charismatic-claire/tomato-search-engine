@@ -44,30 +44,36 @@ a:hover {
 #content-head div.tomato-list-heading {
 	margin-left: 18px;
 }
-#content-middle ul.tomato-list {
-	list-style: none;
-	padding-left: 0;
-}
-#content-middle ul.tomato-list > li.tomato-list-item {
-	padding: 10px;
+#content-middle .tomato-list-item {
 	display: block;
 	float: left;
 	width: 100%;
+	position: relative;
 }
 @media( min-width: 768px ) {
-	#content-middle ul.tomato-list > li.tomato-list-item {
+	#content-middle .tomato-list-item {
 		width: 50%;
 	}
 }
 @media( min-width: 992px ) {
-	#content-middle ul.tomato-list > li.tomato-list-item {
+	#content-middle .tomato-list-item {
 		width: 33%;
 	}
 }
-#content-middle ul.tomato-list > li.tomato-list-item:first-child {
-	margin-top: 0;
+#content-middle .tomato-list-item img.default-tomato {
+	background-color: #F8F9FA;
 }
-#content-middle ul.tomato-list > li.tomato-list-item  a:hover {
+#content-middle .tomato-list-item .tomato-list-item-name {
+	position: absolute;
+	bottom: 0;
+	background-color: #FFF;
+	opacity: 0.6;
+	padding: 15px;
+	width: 100%;
+	height: 25%;
+}
+
+#content-middle .tomato-list-item a:hover {
 	text-decoration: none;
 }
 

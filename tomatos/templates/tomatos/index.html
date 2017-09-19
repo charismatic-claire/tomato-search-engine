@@ -11,19 +11,20 @@
 {% block content_body %}
 	<div id="content-middle" class="col-sm-10">
 		{% if tomato_list %}
-			<ul class="tomato-list">
-				{% for tomato in tomato_list %}
-					<li class="tomato-list-item">
-						<a href="{% url 'tomatos:detail' pk=tomato.id %}" target="_blank">
-							{% if tomato.image %}
-								<img class="img-fluid" src="/media/{{ tomato.image }}" />
-							{% else %}
-								<img class="img-fluid" src="/static/tomatos/icons/tomato.png" />
-							{% endif %}
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
+			{% for tomato in tomato_list %}
+				<div class="tomato-list-item">
+					<a href="{% url 'tomatos:detail' pk=tomato.id %}" target="_blank">
+						{% if tomato.image %}
+							<img class="img-fluid" src="/media/{{ tomato.image }}" />
+						{% else %}
+							<img class="img-fluid default-tomato" src="/static/tomatos/icons/tomato.png" />
+						{% endif %}
+						<div class="tomato-list-item-name">
+							<h5>{{ tomato.name }}</h5>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
 		{% else%}
 			<p>Sorry, no tomatos available.</p>
 		{% endif %}
