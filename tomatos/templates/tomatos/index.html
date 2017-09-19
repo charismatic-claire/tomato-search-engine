@@ -14,8 +14,13 @@
 			<ul class="tomato-list">
 				{% for tomato in tomato_list %}
 					<li class="tomato-list-item">
-						<h4><a href="{% url 'tomatos:detail' pk=tomato.id %}" target="_blank">{{ tomato.name }}</a></h4>
-						<p>{{ tomato.description|truncatewords:20 }}
+						<a href="{% url 'tomatos:detail' pk=tomato.id %}" target="_blank">
+							{% if tomato.image %}
+								<img class="img-fluid" src="/media/{{ tomato.image }}" />
+							{% else %}
+								<img class="img-fluid" src="/static/tomatos/icons/tomato.png" />
+							{% endif %}
+						</a>
 					</li>
 				{% endfor %}
 			</ul>

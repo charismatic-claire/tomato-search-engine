@@ -42,26 +42,30 @@ a:hover {
 
 /* ----------TOMATO RESULTS LIST -------- */
 #content-head div.tomato-list-heading {
-	margin-left: 40px;
+	margin-left: 18px;
 }
 #content-middle ul.tomato-list {
 	list-style: none;
+	padding-left: 0;
 }
 #content-middle ul.tomato-list > li.tomato-list-item {
-	margin-top: 20px;
-	margin-bottom: 20px;
+	padding: 10px;
+	display: block;
+	float: left;
+	width: 100%;
+}
+@media( min-width: 768px ) {
+	#content-middle ul.tomato-list > li.tomato-list-item {
+		width: 50%;
+	}
+}
+@media( min-width: 992px ) {
+	#content-middle ul.tomato-list > li.tomato-list-item {
+		width: 33%;
+	}
 }
 #content-middle ul.tomato-list > li.tomato-list-item:first-child {
 	margin-top: 0;
-}
-#content-middle ul.tomato-list > li.tomato-list-item:before {
-	content: '';
-	display: inline-block;
-	height: 30px;
-	width: 30px;
-	background-image: url('icons/tomato.png');
-	margin-left: -45px;
-	margin-bottom: -32px;
 }
 #content-middle ul.tomato-list > li.tomato-list-item  a:hover {
 	text-decoration: none;
