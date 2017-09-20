@@ -4,6 +4,7 @@ from tomatos.forms.TomatoForm import TomatoForm
 from tomatos.models.TomatoColor import TomatoColor
 from tomatos.models.TomatoType import TomatoType
 from tomatos.models.Tomato import Tomato
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 class BaseView( FormView ):
     """
@@ -54,7 +55,35 @@ class BaseView( FormView ):
                 tomato_types.append( TomatoType.objects.get( id=tomato_type_id ) )
         except:
             pass
-        return tomato_types        
+        return tomato_types
+    
+    def get_page_number( self ):
+        """
+        Get the PAGE NUMBER from request 
+        """
+        page_number = ''
+        try:
+            page_number = self.request.GET.get('page')
+        except:
+            pass
+        return page_number
+    
+    def paginate_tomato_list( self, tomato_list ):
+        """
+        Paginate the tomato list
+        """
+        ## initialize
+        page_number = self.get_page_number()
+        paginator = Paginator( tomato_list, 30 )
+        ## paginate
+        try:
+            result = paginator.page( page_number )
+        except PageNotAnInteger:
+            result = paginator.page( 1 )
+        except EmptyPage:
+            result = paginator.page( paginator.num_pages )            
+        ## return result
+        return result
     
     def generate_response_to_query( self ):
         """
@@ -74,16 +103,29 @@ class BaseView( FormView ):
             tomato_list = tomato_list.filter( types__in = tomato_types )
         ## remove duplicates, sort alphabetically
         tomato_list = tomato_list.distinct().order_by( 'name' )
+        ## paginate
+        tomato_list_paginated = self.paginate_tomato_list( tomato_list )
         ## return result
-        return tomato_list   
+        return { "list": tomato_list_paginated, "length": len(tomato_list) }   
     
+    def get_parameters( self ):
+        """
+        Get copy of all request parameters
+        """
+        get_copy = self.request.GET.copy()
+        parameters = get_copy.pop('page', True) and get_copy.urlencode()
+        return parameters
+        
     def get_context_data( self, **kwargs):
         """
         Overriden method to apply my business logic
         """
         ## get context
         context = super( BaseView, self ).get_context_data( **kwargs )
-        ## add response to context, name it 'tomato_list'
-        context['tomato_list'] = self.generate_response_to_query()
+        ## add information to context
+        tomato_response = self.generate_response_to_query()
+        context['tomato_list'] = tomato_response[ 'list' ]
+        context['tomato_length'] = tomato_response[ 'length' ]
+        context['parameters'] = self.get_parameters()
         ## return result
         return context

@@ -41,14 +41,12 @@ a:hover {
 }
 
 /* ----------TOMATO RESULTS LIST -------- */
-#content-head div.tomato-list-heading {
-	margin-left: 18px;
-}
 #content-middle .tomato-list-item {
 	display: block;
 	float: left;
 	width: 100%;
 	position: relative;
+	opacity: 0.9;
 }
 @media( min-width: 768px ) {
 	#content-middle .tomato-list-item {
@@ -59,6 +57,9 @@ a:hover {
 	#content-middle .tomato-list-item {
 		width: 33%;
 	}
+}
+#content-middle .tomato-list-item:hover {
+	opacity: 1;
 }
 #content-middle .tomato-list-item img.default-tomato {
 	background-color: #F8F9FA;
@@ -75,6 +76,10 @@ a:hover {
 
 #content-middle .tomato-list-item a:hover {
 	text-decoration: none;
+}
+#tomato-pagination {
+	text-align: center;
+	margin-top: 40px;
 }
 
 /*---------- TOMATO DETAILS VIEW -------- */
