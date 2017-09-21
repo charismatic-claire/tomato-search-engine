@@ -96,7 +96,9 @@ class BaseView( FormView ):
         tomato_list = Tomato.objects.order_by( 'name' )
         ## apply filters
         if search_query:
-            tomato_list = tomato_list.filter( Q(description__icontains = search_query) | Q(name__icontains = search_query) )
+            terms = search_query.split()
+            for term in terms:
+                tomato_list = tomato_list.filter( Q(description__icontains = term) | Q(name__icontains = term) )
         if tomato_colors:
             tomato_list = tomato_list.filter( colors__in = tomato_colors )
         if tomato_types:
