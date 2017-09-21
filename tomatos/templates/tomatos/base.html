@@ -11,7 +11,7 @@
     <!-- CSS -->    
     {% load static %}
     <link rel="stylesheet" href="{% static 'tomatos/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'tomatos/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'tomatos/bootstrap/css/bootstrap.css' %}" />
     
     <!-- ICON AND TITLE -->
     <link rel="shortcut icon" type="image/png" href="{% static 'tomatos/icons/favicon.ico' %}" />
@@ -34,15 +34,15 @@
 	  			<!-- MENU ITEMS -->
 	  			<ul class="navbar-nav mr-auto">
 	  				<li class="nav-item">
-	  					<a class="nav-link" data-toggle="collapse" data-parent="#navbarExpand" href="#colorSearchForm"
+	  					<a class="nav-link expandToggle" data-toggle="collapse" data-parent="#navbarExpand" href="#colorSearchForm"
 	  						aria-expanded="false" aria-controls="colorSearchForm">Farben</a>
 	  				</li>
 	  				<li class="nav-item">
-	  					<a class="nav-link" data-toggle="collapse" data-parent="#navbarExpand" href="#typeSearchForm"
+	  					<a class="nav-link expandToggle" data-toggle="collapse" data-parent="#navbarExpand" href="#typeSearchForm"
 	  						aria-expanded="false" aria-controls="typeSearchForm">Typen</a>
 	  				</li>
 	  				<li class="nav-item">
-	  					<a class="nav-link" data-toggle="collapse" data-parent="#navbarExpand" href="#helpCard"
+	  					<a class="nav-link expandToggle" data-toggle="collapse" data-parent="#navbarExpand" href="#helpCard"
 	  						aria-expanded="false" aria-controls="helpCard">Hilfe</a>
 	  				</li>
 	  			</ul>
@@ -143,9 +143,9 @@
 	</div>
     
     <!-- *************** JAVASCRIPT **************** -->
-    <script src="{% static 'tomatos/jquery/js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'tomatos/popper_js/js/popper.min.js' %}"></script>
-	<script src="{% static 'tomatos/bootstrap/js/bootstrap.min.js' %}"></script>     
+    <script src="{% static 'tomatos/jquery/js/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'tomatos/popper_js/js/popper.js' %}"></script>
+	<script src="{% static 'tomatos/bootstrap/js/bootstrap.js' %}"></script>     
     
 </body>
 </html>

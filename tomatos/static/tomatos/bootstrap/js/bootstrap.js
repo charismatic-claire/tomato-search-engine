@@ -1361,14 +1361,23 @@ var Collapse = function ($) {
   /**
    * ------------------------------------------------------------------------
    * Data Api implementation
+   * (modified by Claire)
    * ------------------------------------------------------------------------
    */
 
   $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+  	// handle default case
     if (!/input|textarea/i.test(event.target.tagName)) {
       event.preventDefault();
     }
 
+	// scroll to top
+	var toggleClasses = jQuery(this).attr("class");
+	if( toggleClasses.match(/expandToggle/) ) { 
+		$('html, body').animate({scrollTop : 0},800);
+	}
+	
+	// continue as normal
     var $trigger = $(this);
     var selector = Util.getSelectorFromElement(this);
     $(selector).each(function () {
