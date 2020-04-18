@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from src.tomatos.helpers.TomatoImporter import TomatoImporter
+from tomatos.helpers.TomatoImporter import TomatoImporter
 
 class Command( BaseCommand ):
     
@@ -7,7 +7,6 @@ class Command( BaseCommand ):
         parser.add_argument( 'input_file' )
 
     def handle(self, *args, **options):
-        
         ## initialize
         input_file = options['input_file']
         tomato_importer = TomatoImporter()

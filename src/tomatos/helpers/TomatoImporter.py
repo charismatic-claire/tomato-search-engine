@@ -1,7 +1,7 @@
 import json
-from src.tomatos.models.Tomato import Tomato
-from src.tomatos.models.TomatoColor import TomatoColor
-from src.tomatos.models.TomatoType import TomatoType
+from tomatos.models.Tomato import Tomato
+from tomatos.models.TomatoColor import TomatoColor
+from tomatos.models.TomatoType import TomatoType
 
 class TomatoImporter(object):
 
@@ -33,12 +33,14 @@ class TomatoImporter(object):
             
     def import_tomato_colors( self ):
         tomato_colors = self.find_all_category_values( 'colors' )
+        print(tomato_colors)
         for tomato_color in tomato_colors:
             tc = TomatoColor( name=tomato_color )
             tc.save()
             
     def import_tomato_types( self ):
         tomato_types = self.find_all_category_values( 'types' )
+        print(tomato_types)
         for tomato_type in tomato_types:
             tt = TomatoType( name=tomato_type )
             tt.save()

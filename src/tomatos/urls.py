@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from src.tomatos import views
+from tomatos import views
 
 ## name of app
 app_name = 'tomatos'

@@ -1,4 +1,4 @@
-from src.tomatos.views.BaseView import BaseView
+from tomatos.views.BaseView import BaseView
 
 class IndexView( BaseView ):
     """

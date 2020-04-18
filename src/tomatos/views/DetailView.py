@@ -1,6 +1,6 @@
-from src.tomatos.models.Tomato import Tomato
+from tomatos.models.Tomato import Tomato
 from django.views.generic.detail import DetailView
-from src.tomatos.views.BaseView import BaseView
+from tomatos.views.BaseView import BaseView
 
 class DetailView( DetailView, BaseView ):
     """

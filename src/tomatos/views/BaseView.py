@@ -1,9 +1,9 @@
 from django.views.generic.edit import FormView
 from django.db.models import Q
-from src.tomatos.forms.TomatoForm import TomatoForm
-from src.tomatos.models.TomatoColor import TomatoColor
-from src.tomatos.models.TomatoType import TomatoType
-from src.tomatos.models.Tomato import Tomato
+from tomatos.forms.TomatoForm import TomatoForm
+from tomatos.models.TomatoColor import TomatoColor
+from tomatos.models.TomatoType import TomatoType
+from tomatos.models.Tomato import Tomato
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 class BaseView( FormView ):

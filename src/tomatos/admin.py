@@ -1,7 +1,7 @@
 from django.contrib import admin
-from src.tomatos.models.Tomato import Tomato
-from src.tomatos.models.TomatoColor import TomatoColor
-from src.tomatos.models.TomatoType import TomatoType
+from tomatos.models.Tomato import Tomato
+from tomatos.models.TomatoColor import TomatoColor
+from tomatos.models.TomatoType import TomatoType
 
 ## Models the admin can edit
 admin.site.register( Tomato )

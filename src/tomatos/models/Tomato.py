@@ -1,6 +1,6 @@
 from django.db import models
-from src.tomatos.models.TomatoType import TomatoType
-from src.tomatos.models.TomatoColor import TomatoColor
+from tomatos.models.TomatoType import TomatoType
+from tomatos.models.TomatoColor import TomatoColor
 
 class Tomato( models.Model ):
     """

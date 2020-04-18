@@ -1,7 +1,7 @@
 from django import forms
-from src.tomatos.helpers.ChoiceGenerator import ChoiceGenerator
-from src.tomatos.models.TomatoColor import TomatoColor
-from src.tomatos.models.TomatoType import TomatoType
+from tomatos.helpers.ChoiceGenerator import ChoiceGenerator
+from tomatos.models.TomatoColor import TomatoColor
+from tomatos.models.TomatoType import TomatoType
 from django.forms.widgets import CheckboxSelectMultiple
 
 class TomatoForm( forms.Form ):

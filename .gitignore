@@ -1,5 +1,4 @@
-.project
-.pydevproject
+.settings/
 __pycache__
 /data/*.json
 /data/images/*.jpg
