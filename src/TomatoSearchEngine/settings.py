@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tomatos_db',
         'USER': 'django',
-        'PASSWORD': 'mwXT3bYPwUyvhsYO',
+        'PASSWORD': 'your_password_here',
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }

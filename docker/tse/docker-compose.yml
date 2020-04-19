@@ -5,7 +5,7 @@ services:
             context: ./db
         environment:
             - POSTGRES_USER=django
-            - POSTGRES_PASSWORD=mwXT3bYPwUyvhsYO
+            - POSTGRES_PASSWORD=your_password_here
             - POSTGRES_DB=tomatos_db
         volumes:
             - "db_data:/var/lib/postgresql/data"
@@ -15,9 +15,9 @@ services:
     web:
         build:
             context: ./web
-        command: bash -c "sleep 20s && python3 TomatoSearchEngine/manage.py runserver 0.0.0.0:8080"
+        command: bash -c "./run.sh"
         volumes:
-            - ./web:/code
+            - "web_state:/state"
         ports:
             - "8080:8080"
         depends_on:
@@ -25,3 +25,4 @@ services:
 
 volumes:
     db_data:
+    web_state:

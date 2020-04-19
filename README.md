@@ -3,3 +3,7 @@ A search engine re-implementing the tomato varieties listed on this website: (Bi
 
 ## How to run using Docker
 ...
+
+## License
+GPL-3.0-or-later
+
